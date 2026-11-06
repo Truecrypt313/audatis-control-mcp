@@ -1,0 +1,161 @@
+{
+  "create": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "last_name": {
+        "type": "string",
+        "maxLength": 255,
+        "minLength": 1
+      },
+      "first_name": {
+        "type": "string",
+        "maxLength": 255,
+        "minLength": 1
+      },
+      "email": {
+        "type": "string",
+        "format": "email",
+        "maxLength": 255,
+        "minLength": 1
+      },
+      "employee_number": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "maxLength": 250
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "inactive",
+          "active",
+          "invited",
+          "deactivated"
+        ]
+      },
+      "language": {
+        "type": "string",
+        "enum": [
+          "de",
+          "en"
+        ]
+      },
+      "organisation_ids": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxItems": 50,
+        "uniqueItems": true
+      },
+      "tag_ids": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "uniqueItems": true,
+        "maxItems": 50
+      },
+      "login_mode": {
+        "type": "string",
+        "default": "email",
+        "enum": [
+          "email",
+          "alternative"
+        ]
+      }
+    },
+    "required": [
+      "last_name",
+      "first_name",
+      "email"
+    ]
+  },
+  "update": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "last_name": {
+        "type": "string",
+        "maxLength": 255,
+        "minLength": 1
+      },
+      "first_name": {
+        "type": "string",
+        "maxLength": 255,
+        "minLength": 1
+      },
+      "email": {
+        "type": "string",
+        "format": "email",
+        "maxLength": 255,
+        "minLength": 1
+      },
+      "employee_number": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "maxLength": 250
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "inactive",
+          "active",
+          "invited",
+          "deactivated"
+        ]
+      },
+      "language": {
+        "type": "string",
+        "enum": [
+          "de",
+          "en"
+        ]
+      }
+    }
+  },
+  "bulk_organisations": {
+    "description": "Adds and removes organisation assignments of several persons. At least one of add/remove must contain an ID; an ID in both lists is removed.",
+    "required": [
+      "person_ids"
+    ],
+    "properties": {
+      "person_ids": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxItems": 25,
+        "minItems": 1,
+        "uniqueItems": true
+      },
+      "add": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxItems": 100,
+        "uniqueItems": true
+      },
+      "remove": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxItems": 100,
+        "uniqueItems": true
+      }
+    },
+    "type": "object",
+    "additionalProperties": false
+  }
+}

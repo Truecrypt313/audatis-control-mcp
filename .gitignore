@@ -1,0 +1,20 @@
+# Secrets and machine-local configuration
+.env
+.env.*
+!.env.example
+.vscode/mcp.json
+*token*
+!personnel_contract.json
+
+# Local environments, runtime, test output
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.log
+.audatis_pending/
+.state-backups/
+
+# GitHub publication local state
+*.zip

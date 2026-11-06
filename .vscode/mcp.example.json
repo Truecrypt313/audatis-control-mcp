@@ -1,0 +1,17 @@
+{
+  "servers": {
+    "audatisControl": {
+      "type": "stdio",
+      "command": "/ABSOLUTE/PATH/TO/.venv/bin/python",
+      "args": [
+        "/ABSOLUTE/PATH/TO/audatis-control-mcp/server.py"
+      ],
+      "env": {
+        "AUDATIS_BASE_URL": "https://your-audatis-host.example",
+        "AUDATIS_CLIENT_ID": "12345",
+        "AUDATIS_ALLOWED_CLIENT_ID": "12345",
+        "AUDATIS_MCP_TOOL_NAMES": "modern"
+      }
+    }
+  }
+}

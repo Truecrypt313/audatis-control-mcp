@@ -1,0 +1,1622 @@
+{
+  "source": "audatis MANAGER OpenAPI v1.3.0 (2026-11-04)",
+  "requests": {
+    "assets": {
+      "create": {
+        "required": [
+          "title",
+          "category_id"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "example": "Office Laptop"
+          },
+          "category_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "asset_owner_user_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "additional_responsible_user_ids": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "tag_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "protection_needs": {
+            "properties": {
+              "classification": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "confidentiality_override": {
+                "anyOf": [
+                  {
+                    "description": "Ignored (stored as null) when lower than the value derived from linked information values.",
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "integrity_override": {
+                "anyOf": [
+                  {
+                    "description": "Ignored (stored as null) when lower than the derived value.",
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "availability_override": {
+                "anyOf": [
+                  {
+                    "description": "Ignored (stored as null) when lower than the derived value.",
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "criticality_override": {
+                "anyOf": [
+                  {
+                    "description": "Ignored (stored as null) when lower than the derived value.",
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "type": "object",
+            "additionalProperties": false
+          },
+          "custom_fields": {
+            "description": "Custom field values, either as object {\"<field_id>\": \"<value>\"} or as array [{\"field_id\": \"...\", \"value\": \"...\"}] (designation and type are accepted and ignored, so a GET entry can be sent back). Unknown or inactive field IDs are rejected with 422.",
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "required": [
+                    "field_id"
+                  ],
+                  "properties": {
+                    "field_id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "value": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "designation": {
+                      "anyOf": [
+                        {
+                          "description": "Ignored on write.",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "type": {
+                      "anyOf": [
+                        {
+                          "description": "Ignored on write.",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "type": "object",
+                  "additionalProperties": false
+                }
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "update": {
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "example": "Office Laptop"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "asset_owner_user_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "additional_responsible_user_ids": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "tag_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "is_group": {
+            "type": "boolean"
+          },
+          "parent_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "is_shared": {
+            "type": "boolean"
+          },
+          "ai": {
+            "properties": {
+              "is_used": {
+                "type": "boolean"
+              },
+              "risk_class": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "role": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "description": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "type": "object",
+            "additionalProperties": false
+          },
+          "lifecycle": {
+            "properties": {
+              "start_at": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "end_at": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "notes": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "type": "object",
+            "additionalProperties": false
+          },
+          "protection_needs": {
+            "properties": {
+              "classification": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "confidentiality_override": {
+                "anyOf": [
+                  {
+                    "description": "Ignored (stored as null) when lower than the value derived from linked information values.",
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "integrity_override": {
+                "anyOf": [
+                  {
+                    "description": "Ignored (stored as null) when lower than the derived value.",
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "availability_override": {
+                "anyOf": [
+                  {
+                    "description": "Ignored (stored as null) when lower than the derived value.",
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "criticality_override": {
+                "anyOf": [
+                  {
+                    "description": "Ignored (stored as null) when lower than the derived value.",
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "type": "object",
+            "additionalProperties": false
+          },
+          "custom_fields": {
+            "description": "Custom field values, either as object {\"<field_id>\": \"<value>\"} or as array [{\"field_id\": \"...\", \"value\": \"...\"}] (designation and type are accepted and ignored, so a GET entry can be sent back). Unknown or inactive field IDs are rejected with 422.",
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "required": [
+                    "field_id"
+                  ],
+                  "properties": {
+                    "field_id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "value": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "designation": {
+                      "anyOf": [
+                        {
+                          "description": "Ignored on write.",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "type": {
+                      "anyOf": [
+                        {
+                          "description": "Ignored on write.",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "type": "object",
+                  "additionalProperties": false
+                }
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      }
+    },
+    "tasks": {
+      "create": {
+        "required": [
+          "subject"
+        ],
+        "properties": {
+          "subject": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "example": "Review privacy policy"
+          },
+          "description": {
+            "type": "string",
+            "example": "Please review the privacy policy by Friday."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "task",
+              "milestone",
+              "deadline"
+            ],
+            "example": "task"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "in_progress",
+              "waiting",
+              "completed",
+              "cancelled",
+              "not_relevant",
+              "not_feasible",
+              "planned"
+            ],
+            "example": "open"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "none",
+              "critical",
+              "high",
+              "normal",
+              "low"
+            ],
+            "example": "normal"
+          },
+          "progress": {
+            "type": "integer",
+            "maximum": 100,
+            "minimum": 0,
+            "example": 0
+          },
+          "assigned_to_user_id": {
+            "anyOf": [
+              {
+                "description": "User ID of the assignee",
+                "type": "integer",
+                "example": 5
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "planned_effort": {
+            "anyOf": [
+              {
+                "description": "Planned effort in hours",
+                "type": "number",
+                "example": 8
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date",
+                "example": "2026-03-01"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "due_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date",
+                "example": "2026-04-01"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "actual_start_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date",
+                "example": null
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "actual_end_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date",
+                "example": null
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "has_reminder": {
+            "type": "boolean",
+            "example": false
+          },
+          "reminder_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "example": null
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "is_recurring": {
+            "type": "boolean",
+            "example": false
+          },
+          "recurrence_days": {
+            "anyOf": [
+              {
+                "description": "Recurrence cycle in days",
+                "type": "integer",
+                "example": null
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "is_consultant_only": {
+            "description": "Consultant-only task; only settable by permission level 4",
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "update": {
+        "required": [
+          "subject"
+        ],
+        "properties": {
+          "subject": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "example": "Review privacy policy"
+          },
+          "description": {
+            "type": "string",
+            "example": "Please review the privacy policy by Friday."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "task",
+              "milestone",
+              "deadline"
+            ],
+            "example": "task"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "in_progress",
+              "waiting",
+              "completed",
+              "cancelled",
+              "not_relevant",
+              "not_feasible",
+              "planned"
+            ],
+            "example": "open"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "none",
+              "critical",
+              "high",
+              "normal",
+              "low"
+            ],
+            "example": "normal"
+          },
+          "progress": {
+            "type": "integer",
+            "maximum": 100,
+            "minimum": 0,
+            "example": 0
+          },
+          "assigned_to_user_id": {
+            "anyOf": [
+              {
+                "description": "User ID of the assignee",
+                "type": "integer",
+                "example": 5
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "planned_effort": {
+            "anyOf": [
+              {
+                "description": "Planned effort in hours",
+                "type": "number",
+                "example": 8
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date",
+                "example": "2026-03-01"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "due_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date",
+                "example": "2026-04-01"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "actual_start_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date",
+                "example": null
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "actual_end_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date",
+                "example": null
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "has_reminder": {
+            "type": "boolean",
+            "example": false
+          },
+          "reminder_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "example": null
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "is_recurring": {
+            "type": "boolean",
+            "example": false
+          },
+          "recurrence_days": {
+            "anyOf": [
+              {
+                "description": "Recurrence cycle in days",
+                "type": "integer",
+                "example": null
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "is_consultant_only": {
+            "description": "Consultant-only task; only changeable by permission level 4",
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      }
+    },
+    "information-values": {
+      "create": {
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "example": "Customer Database"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "asset_owner_user_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "has_personal_reference": {
+            "type": "boolean"
+          },
+          "has_art9_data": {
+            "type": "boolean"
+          },
+          "protection_needs": {
+            "$ref": "#/$defs/InformationValueProtectionNeedsInput"
+          },
+          "classification_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "text_module_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "additional_responsible_ids": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "tag_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "next_review_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "has_mandate_approval": {
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "update": {
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "example": "Customer Database"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "asset_owner_user_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "has_personal_reference": {
+            "type": "boolean"
+          },
+          "has_art9_data": {
+            "type": "boolean"
+          },
+          "protection_needs": {
+            "$ref": "#/$defs/InformationValueProtectionNeedsInput"
+          },
+          "classification_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "text_module_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "additional_responsible_ids": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "tag_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "next_review_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "has_mandate_approval": {
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      }
+    },
+    "business-processes": {
+      "create": {
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "example": "Order Processing"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "process_owner_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "organisation_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "parent_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "protection_need": {
+            "type": "integer",
+            "maximum": 4,
+            "minimum": 1
+          },
+          "protection_need_justification": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "criticality": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "process_type_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tag_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "planning",
+              "active",
+              "inactive",
+              "planned"
+            ]
+          },
+          "process": {
+            "properties": {
+              "goal": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "input": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "output": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "steps": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "type": "object",
+            "additionalProperties": false
+          },
+          "resources": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "key_figures": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "risk_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "next_review_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "has_mandate_approval": {
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "update": {
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "example": "Order Processing"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "process_owner_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "organisation_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "parent_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "protection_need": {
+            "type": "integer",
+            "maximum": 4,
+            "minimum": 1
+          },
+          "protection_need_justification": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "criticality": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "process_type_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tag_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "planning",
+              "active",
+              "inactive",
+              "planned"
+            ]
+          },
+          "process": {
+            "properties": {
+              "goal": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "input": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "output": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "steps": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "type": "object",
+            "additionalProperties": false
+          },
+          "resources": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "key_figures": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "risk_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "next_review_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "has_mandate_approval": {
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      }
+    },
+    "measures": {
+      "create": {
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "technical",
+              "organizational"
+            ]
+          },
+          "is_confidentiality_goal": {
+            "type": "boolean"
+          },
+          "is_integrity_goal": {
+            "type": "boolean"
+          },
+          "is_availability_goal": {
+            "type": "boolean"
+          },
+          "implementation_status": {
+            "type": "string",
+            "enum": [
+              "planned",
+              "in_progress",
+              "implemented",
+              "not_applicable"
+            ]
+          },
+          "is_effectiveness_active": {
+            "type": "boolean"
+          },
+          "next_review_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "responsible_user_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "is_released": {
+            "type": "boolean"
+          },
+          "tag_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "update": {
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "technical",
+              "organizational"
+            ]
+          },
+          "is_confidentiality_goal": {
+            "type": "boolean"
+          },
+          "is_integrity_goal": {
+            "type": "boolean"
+          },
+          "is_availability_goal": {
+            "type": "boolean"
+          },
+          "implementation_status": {
+            "type": "string",
+            "enum": [
+              "planned",
+              "in_progress",
+              "implemented",
+              "not_applicable"
+            ]
+          },
+          "is_effectiveness_active": {
+            "type": "boolean"
+          },
+          "next_review_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "responsible_user_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "is_released": {
+            "type": "boolean"
+          },
+          "tag_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      }
+    }
+  },
+  "definitions": {
+    "InformationValueProtectionNeedsInput": {
+      "properties": {
+        "confidentiality": {
+          "properties": {
+            "level": {
+              "type": "string",
+              "enum": [
+                "not_defined",
+                "normal",
+                "high",
+                "very_high"
+              ]
+            },
+            "reason": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object",
+          "additionalProperties": false
+        },
+        "integrity": {
+          "properties": {
+            "level": {
+              "type": "string",
+              "enum": [
+                "not_defined",
+                "normal",
+                "high",
+                "very_high"
+              ]
+            },
+            "reason": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object",
+          "additionalProperties": false
+        },
+        "availability": {
+          "properties": {
+            "level": {
+              "type": "string",
+              "enum": [
+                "inherited",
+                "normal",
+                "high",
+                "very_high"
+              ]
+            },
+            "reason": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object",
+          "additionalProperties": false
+        }
+      },
+      "type": "object",
+      "additionalProperties": false
+    }
+  }
+}
