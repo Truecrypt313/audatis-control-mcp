@@ -4,7 +4,7 @@ from __future__ import annotations
 import html
 import json
 
-from .model import RESOURCES, digest
+from .model import RESOURCES, assets_only, digest
 from .planner import plan_remediation, validate_assessment, validate_plan
 
 STATUS_LABELS = {
@@ -47,6 +47,9 @@ def render_report(assessment: dict, plan: dict | None = None) -> dict:
     validate_assessment(assessment)
     plan = plan_remediation(assessment) if plan is None else plan
     validate_plan(plan, assessment)
+    if assets_only(assessment):
+        from .asset_summary import render_asset_summary
+        return render_asset_summary(assessment, plan)
     ctx, summary = assessment["context"], assessment["summary"]
     synthetic = ctx["synthetic"]
     notice = ("FIKTIVES PORTFOLIO-SZENARIO – ausschließlich synthetische Daten. Keine Aussage über ein reales Unternehmen."

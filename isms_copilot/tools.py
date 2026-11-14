@@ -4,7 +4,7 @@ from __future__ import annotations
 from functools import wraps
 from inspect import iscoroutinefunction, signature
 
-from .assessment import LIMITATIONS, PRIORITIES, RULE_CATALOG, RULESET_VERSION, assess
+from .assessment import ASSET_RULESET_VERSION, LIMITATIONS, PRIORITIES, RULE_CATALOG, RULESET_VERSION, assess
 from .collector import READ_TOOLS, collect_authorized
 from .model import RESOURCES, parse_json
 from .planner import plan_remediation as make_plan, validate_assessment
@@ -19,6 +19,11 @@ def copilot_capabilities() -> dict:
              "priority_criteria": PRIORITIES, "base_server_tools_unchanged": 227,
             "base_tools_without_optional_catalog": 48,
             "full_catalog_requires_authorized_local_specification": True,
+            "asset_workflow": {"main_profile": "core,assets", "max_recommendations": 3,
+                                "ruleset_version": ASSET_RULESET_VERSION,
+                                "report_format": "Asset Assessment – Management Summary",
+                                "export_configuration": "AUDATIS_COPILOT_OUTPUT_DIR",
+                                "export_via_local_cli_only": True},
             "read_bridge_allowlist": sorted(READ_TOOLS),
             "live_collection_requires": ["allow_live_read", "acknowledge_sensitive_output"],
             "external_ai_calls": False, "writes_to_audatis": False, "limitations": LIMITATIONS}

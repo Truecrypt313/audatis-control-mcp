@@ -65,7 +65,7 @@ BUNDLE_SCHEMA = {
         },
         "references": {
             "type": "object", "additionalProperties": False,
-            "properties": {"asset_protection_levels": ID},
+            "properties": {"asset_protection_levels": ID, "asset_statuses": ID},
         },
     },
 }
@@ -193,3 +193,7 @@ def verify_seal(value: dict, field: str) -> None:
     body = {k: v for k, v in value.items() if k != field}
     if value[field] != digest(body):
         raise ValueError("Ergebnis-Prüfsumme abweichend; Bewertung erneut erzeugen")
+
+
+def assets_only(assessment: dict) -> bool:
+    return {r for r, info in assessment["coverage"].items() if info["in_scope"]} == {"assets"}
