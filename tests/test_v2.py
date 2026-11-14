@@ -14,10 +14,10 @@ import v2_bulk
 import v2_analysis
 from v2_register import V2_TOOLS, register_v2_tools
 
-ASSET_ID = "e4fcf3d0-e04a-45fc-838d-55b9cb0582b9"
-CATEGORY_ID = "3cd3b9ac-5e08-4216-aca1-e3aa58c6fcc1"
-PROCESS_ID = "b3442230-e04a-45fc-838d-55b9cb0582b9"
-INCIDENT_ID = "ced42330-e04a-45fc-838d-55b9cb0582b9"
+ASSET_ID = "00000000-0000-0000-0000-0000000003f4"
+CATEGORY_ID = "00000000-0000-0000-0000-0000000003ec"
+PROCESS_ID = "00000000-0000-0000-0000-0000000003f0"
+INCIDENT_ID = "00000000-0000-0000-0000-0000000003f1"
 
 
 def build_api(handler):
@@ -293,7 +293,8 @@ def test_legacy_server_with_additive_v2_registration_has_31_tools(monkeypatch):
     registered = old_server.mcp.registered
     v2_names = {fn.__name__ for fn in V2_TOOLS}
 
-    assert len(registered) in (31, 36, 47)
+    from management_tools import MANAGEMENT_TOOLS
+    assert len(registered) == 47 + len(MANAGEMENT_TOOLS) + 1
     assert v2_names.issubset(set(registered))
     assert len(set(registered)) == len(registered)
     monkeypatch.delitem(sys.modules, "server", raising=False)
@@ -314,7 +315,7 @@ def test_lookup_is_explicitly_whitelisted():
 
 
 def test_bulk_update_task_preserves_original_subject(monkeypatch):
-    tasks_id = "01a1aac7-1f2a-7365-88fe-4db76c63cb20"
+    tasks_id = "00000000-0000-0000-0000-0000000003e9"
     calls = []
     def handle(req):
         calls.append(req)

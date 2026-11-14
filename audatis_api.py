@@ -64,6 +64,13 @@ class AudatisAPI:
             raise ConfigurationError("AUDATIS_CLIENT_ID muss numerisch sein") from exc
         if require_client and client_id is None:
             raise ConfigurationError("AUDATIS_CLIENT_ID fehlt")
+        if require_client:
+            try:
+                allowed = int(os.environ.get("AUDATIS_ALLOWED_CLIENT_ID", "0"))
+            except ValueError:
+                raise ConfigurationError("AUDATIS_ALLOWED_CLIENT_ID muss numerisch sein") from None
+            if allowed <= 0 or client_id != allowed:
+                raise ConfigurationError("Mandant nicht ausdrücklich freigegeben")
         return cls(
             base_url=os.environ.get("AUDATIS_BASE_URL", ""),
             token=os.environ.get("AUDATIS_API_TOKEN", ""),

@@ -41,7 +41,7 @@ def _uuid(value: str, name: str) -> str:
 
 
 def _settings() -> tuple[str, str]:
-    if os.environ.get("AUDATIS_CLIENT_ID") != str(EXPECTED_CLIENT_ID):
+    if EXPECTED_CLIENT_ID <= 0 or os.environ.get("AUDATIS_CLIENT_ID") != str(EXPECTED_CLIENT_ID):
         raise RuntimeError("MCP nicht für den erwarteten Testmandanten konfiguriert")
     base_url = _origin(os.environ.get("AUDATIS_BASE_URL", ""))
     return base_url, _write_token()

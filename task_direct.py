@@ -74,7 +74,7 @@ def create_task(
             raise ValueError("due_date muss YYYY-MM-DD sein")
         payload["due_date"] = due_date
 
-    if os.getenv("AUDATIS_CLIENT_ID") != str(EXPECTED_CLIENT_ID):
+    if EXPECTED_CLIENT_ID <= 0 or os.getenv("AUDATIS_CLIENT_ID") != str(EXPECTED_CLIENT_ID):
         raise RuntimeError("MCP ist nicht für den erwarteten Testmandanten konfiguriert")
     base_url = _origin(os.environ.get("AUDATIS_BASE_URL", ""))
     token = _write_token()
@@ -121,4 +121,3 @@ def create_task(
         "priority": item.get("priority"),
         "due_date": item.get("due_date"),
     }
-

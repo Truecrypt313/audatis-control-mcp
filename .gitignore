@@ -18,3 +18,20 @@ __pycache__/
 
 # GitHub publication local state
 *.zip
+
+# Private vendor contracts and application-portfolio material
+specs/
+portfolio/
+portfolio_src/
+examples/portfolio/
+examples/isms_copilot/
+docs/PORTFOLIO_*.md
+docs/API_*
+docs/TOOL_INVENTORY.md
+docs/TOOL_GROUPS.md
+scripts/build_portfolio.py
+scripts/build_api_coverage.py
+tests/test_portfolio.py
+isms_copilot/portfolio.py
+isms_copilot/presentation.py
+copilot-output/

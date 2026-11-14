@@ -1,0 +1,1814 @@
+{
+  "legacy": {
+    "create_task": {
+      "signature": "(subject: 'str', description: 'str' = '', priority: 'str' = 'normal', due_date: 'str' = '') -> 'dict'",
+      "description_sha256": "6469c4640763a74dca4f6ca0b57be62e41137535bf4e85130fc3093e90e25ab9"
+    },
+    "get_task": {
+      "signature": "(task_id: 'str') -> 'dict'",
+      "description_sha256": "113ed79857f899fa16cffeeb5b2616ed56ce5c51d0efea149f2d0cddc8ac645f"
+    },
+    "update_task": {
+      "signature": "(task_id: 'str', subject: 'str' = '', description: 'str' = '', priority: 'str' = '', status: 'str' = '', due_date: 'str' = '', clear_due_date: 'bool' = False, assigned_to_user_id: 'int' = -1) -> 'dict'",
+      "description_sha256": "534ad3757fa0769072be505bcf9ce34c8342b73c04d4bd311066400d6e677797"
+    },
+    "list_asset_categories": {
+      "signature": "() -> 'dict'",
+      "description_sha256": "ad8f686f6c3fc84b1559c5a3d422237884586732232275d6e1f170fa88208db6"
+    },
+    "list_asset_types": {
+      "signature": "(category_id: 'str') -> 'dict'",
+      "description_sha256": "7f7887bfcf2e1e931d427c97e98eb84663ccf074bb01fa8d1e745fd7d42aabe7"
+    },
+    "get_asset": {
+      "signature": "(asset_id: 'str') -> 'dict'",
+      "description_sha256": "427b7378f8eab58a1474f7cf3587ca216c084d08613e7a576a0ab8a189c71577"
+    },
+    "create_asset": {
+      "signature": "(title: 'str', category_id: 'str', type_id: 'str' = '') -> 'dict'",
+      "description_sha256": "4e2c793b492cf040aac73347a0f98c8bbe04137d892e6c341b0179b24ddd0878"
+    },
+    "list_users": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 100) -> 'dict'",
+      "description_sha256": "6cc198e427e2fd9dbe5cd18681e9508cf9a0247031c899eaeed007cfb39d9e47"
+    },
+    "update_asset": {
+      "signature": "(asset_id: 'str', asset_owner_user_id: 'int' = -1, title: 'str' = '', description: 'str' = '', clear_description: 'bool' = False) -> 'dict'",
+      "description_sha256": "49c8de66c4c017f60a711c7ad204d5501f2d2ea055831069bc55f54089f1b8ad"
+    },
+    "list_asset_protection_levels": {
+      "signature": "() -> 'dict[str, Any]'",
+      "description_sha256": "5ece60116c6829a63cc4c335126e5ba80322178d080d49264bb45de7b24b2ee8"
+    },
+    "set_asset_protection_needs": {
+      "signature": "(asset_id: 'str', confidentiality: 'int' = -1, integrity: 'int' = -1, availability: 'int' = -1) -> 'dict[str, Any]'",
+      "description_sha256": "cf7baa37721df86ebe6048c0f2d593f166f6356fcd5fcbb5c6705b8532056421"
+    },
+    "list_assets": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10) -> 'dict'",
+      "description_sha256": "342d980b79e47546617d9cab0088ff254f305b18e6e1e280138c7d0baf87ed46"
+    },
+    "list_risks": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10, status: 'str' = '') -> 'dict'",
+      "description_sha256": "87271a2146f4bc3be2bb0a0c83b43428b8489af6c6d3ca35ddce5c4987751b7e"
+    },
+    "list_tasks": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10, status: 'str' = '') -> 'dict'",
+      "description_sha256": "58e95e37948f3a2238580e22c48cd6f2bdcb3d65f8b43eab678f7bc7a07d4de7"
+    },
+    "list_incidents": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10, status: 'str' = '') -> 'dict'",
+      "description_sha256": "4c94d0ee6e9b9b4953ef8f955539eb53b34a4b3d065936a50dd485f7d27409bb"
+    },
+    "preview_create_task": {
+      "signature": "(subject: 'str', description: 'str' = '', priority: 'str' = 'normal', due_date: 'str' = '') -> 'dict'",
+      "description_sha256": "f5a7560b806fff6af0753102189003ac40f33bc84edda06bdb81d3eb8b8a9481"
+    },
+    "v2_capabilities": {
+      "signature": "() -> 'dict'",
+      "description_sha256": "97d6ab39ba0af5f7a92c26c051b302fa4f33ba0662378285aff289603fbbac39"
+    },
+    "v2_list_records": {
+      "signature": "(resource: 'str', page: 'int' = 1, per_page: 'int' = 30) -> 'dict'",
+      "description_sha256": "0277459806126059e31eee7fdbd3c8834a4949e422876c12502013813abc4abd"
+    },
+    "v2_get_record": {
+      "signature": "(resource: 'str', record_id: 'str') -> 'dict'",
+      "description_sha256": "7d387f0c680d277c0d73d4f64800d34d226bffe2131862547876fc885e3610c4"
+    },
+    "v2_lookup": {
+      "signature": "(name: 'str') -> 'dict'",
+      "description_sha256": "fa0d097fdf6d04e2b3f19e7d7429d8595f626ed3d8743eb317f952e849fe832f"
+    },
+    "v2_create_record": {
+      "signature": "(resource: 'str', payload_json: 'str') -> 'dict'",
+      "description_sha256": "12024b05366a1444c23a1627ec2d848f5613ac2045742d391d983a6644c9fefe"
+    },
+    "v2_update_record": {
+      "signature": "(resource: 'str', record_id: 'str', changes_json: 'str') -> 'dict'",
+      "description_sha256": "228d0e01baedbf354192aaf3e615c4d247d5d77982b01b1eb53f3d5bd63eaeef"
+    },
+    "v2_list_incident_links": {
+      "signature": "(incident_id: 'str', kind: 'str') -> 'dict'",
+      "description_sha256": "bf4ee8bda3a6eb36dfc4ab0a102e92b0349f4a03b3c8495cf62ab3eb20b9fe53"
+    },
+    "v2_link_incident": {
+      "signature": "(incident_id: 'str', kind: 'str', target_id: 'str') -> 'dict'",
+      "description_sha256": "cbcdef045c9be0accd1bc6e2cec1c45b0bd1a115ac6593004e4d1b447a6d170c"
+    },
+    "v2_audit_log": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 30, entity_type: 'str' = '', action: 'str' = '') -> 'dict'",
+      "description_sha256": "358790c14ab12a97370c72324e8c359968de9c623ef87f17d34cb9651374d798"
+    },
+    "v2_bulk_create_records": {
+      "signature": "(resource: 'str', items_json: 'str', execute: 'bool' = False, check_existing: 'bool' = True) -> 'dict'",
+      "description_sha256": "16e804f02da5d3d8f9516311336fe12dbc27975e687c9bc81860a7bb6908782e"
+    },
+    "v2_bulk_update_records": {
+      "signature": "(resource: 'str', items_json: 'str', execute: 'bool' = False) -> 'dict'",
+      "description_sha256": "d899e3fbe290d42be4dba870469c17ace95f8ef8f32888480c3c3d311a289fd2"
+    },
+    "v2_inventory_snapshot": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description_sha256": "53628ce02c964c1a42ce7c25dd7704ef9e25a96b18b6e7b1cabae63584c38ae6"
+    },
+    "v2_asset_graph": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description_sha256": "3bc089f24f1153f6f74760085a8e54d8e6a117a5395eb291c8c70e5a6f64d108"
+    },
+    "v2_documentation_gaps": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description_sha256": "e1a4cf9f477a5ec59cb52474507586e02634d26205daca6ff3c53e87a68e77dc"
+    },
+    "v2_duplicate_tasks": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description_sha256": "2e2cb3369daa2d267602ecbd668408eae5461001e20cf580e5904b04bbef2e2c"
+    },
+    "v21_relationship_capabilities": {
+      "signature": "() -> 'dict'",
+      "description_sha256": "6f388df900e47bf7b11a7434106f9887883a1e6690dd94282c27bc1e42ca2daf"
+    },
+    "v21_relationship_graph": {
+      "signature": "(max_pages: 'int' = 5, max_edges: 'int' = 3000) -> 'dict'",
+      "description_sha256": "dc3f95fcf9aac2fe5e9c55bac6ab331219189d7f7933fa09ab1f3804eac88f52"
+    },
+    "v21_related_records": {
+      "signature": "(resource: 'str', record_id: 'str', max_depth: 'int' = 2, max_pages: 'int' = 5) -> 'dict'",
+      "description_sha256": "2dc9fdab50cad056eae772232c7bf0b4df6fa4f450b84bac6f779e117cba04c2"
+    },
+    "v21_relationship_audit": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description_sha256": "7aa20609f28f681ddbccf1c5d5f5f11f862e0f9e3b335371fe89f6275a614348"
+    },
+    "v21_bulk_set_parent": {
+      "signature": "(resource: 'str', items_json: 'str', execute: 'bool' = False, max_pages: 'int' = 5) -> 'dict'",
+      "description_sha256": "0e7f6844bf2ddf7a2ddef8d5372c88c81ee0aee012f04f5a328d839a09a5ff67"
+    },
+    "personnel_capabilities": {
+      "signature": "() -> 'dict'",
+      "description_sha256": "d12d0d36049921ba6dbf7a0e474882e41f2595ccbcaf4d3e4ff7b370dfa43bff"
+    },
+    "list_organisations": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 50) -> 'dict'",
+      "description_sha256": "ca49d32ede4e4a04c0e0b57c3d068e42c684712728be2e4ccfb5c2b617685a05"
+    },
+    "get_organisation": {
+      "signature": "(organisation_id: 'int') -> 'dict'",
+      "description_sha256": "754298a589d3dbf8c70cb003b141a4c80fa0cabbe3bdda8efb65fc1925e8e28b"
+    },
+    "list_personnel": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 50, archived: 'str' = 'false', q: 'str' = '', organisation_id: 'int' = 0) -> 'dict'",
+      "description_sha256": "07d76f2070a17f4daa26be99e28b4fd7dc5adfe8a9f3dd3d0687bb0d0cdc7dca"
+    },
+    "get_personnel": {
+      "signature": "(person_id: 'int') -> 'dict'",
+      "description_sha256": "6e353394510d8e0ba971a544181a773bee9c6b04fec2e235114adff5e52db163"
+    },
+    "create_personnel": {
+      "signature": "(payload_json: 'str', execute: 'bool' = False, check_existing: 'bool' = True) -> 'dict'",
+      "description_sha256": "25864374cb637dbcf613e63fdb2c7070531b80076b37f71e61cf7dde8b5957d5"
+    },
+    "update_personnel": {
+      "signature": "(person_id: 'int', changes_json: 'str', execute: 'bool' = False) -> 'dict'",
+      "description_sha256": "feb032f75118fa31626aa7c6bab930f0dfe74ea3f21bdf05d0995c0a4a52b9de"
+    },
+    "assign_personnel_organisations": {
+      "signature": "(person_ids_json: 'str', add_json: 'str' = '[]', remove_json: 'str' = '[]', execute: 'bool' = False) -> 'dict'",
+      "description_sha256": "313dd1b468a578836576e6205db0b1c7597c4961dd0da0bfacea970abd0b8175"
+    },
+    "list_personnel_tags": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 50) -> 'dict'",
+      "description_sha256": "c6a11ebfa6d6395f5ca17405a9f6a45f25b78777b74bf9b91e51eb75e313d839"
+    },
+    "get_user": {
+      "signature": "(user_id: 'int') -> 'dict'",
+      "description_sha256": "0c0846371e2944607b3def67f4c09d731e294d903006b74ddc5a05f91d0029bb"
+    },
+    "get_personnel_assignments": {
+      "signature": "(person_id: 'int') -> 'dict'",
+      "description_sha256": "a82dd30662b2beb911492926643176a6fdbf1ccfde5e36e1e775b72d9eb553f6"
+    },
+    "management_capabilities": {
+      "signature": "() -> 'dict'",
+      "description_sha256": "c7386ad52f720797ad3435548eed7b7381426e5d08edfa0d89037ad004db131f"
+    },
+    "describe_management_tool": {
+      "signature": "(tool_name: 'str') -> 'dict'",
+      "description_sha256": "5dfd08a9f69e0270a5eaa956b474024db50e3e83ea7d239216c00475778516cb"
+    },
+    "query_audit_log": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "7058342a46c7ec426c518f778aa757f2ed31aa45a737f48ea203a1f74fbffbfd"
+    },
+    "list_business_processes": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "c779e2f8a7819a46d9b91f75887f697b3d3a1a966eb17bbdf6f9304f8e867fb3"
+    },
+    "create_business_process": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "b6cea55b0239af737cd828fec0208a07818790a627dc0d5a2a143ffc17c78d33"
+    },
+    "get_business_process": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "7bf1af2ecfe06cc5d472fed2732780d65dd6f248d871947d5385d49556541472"
+    },
+    "update_business_process": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "82728c76ed68263497291733c48d13487be4760856ae81679d85b97c7861be3b"
+    },
+    "delete_business_process": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "96f43d3121d951f57884626c40df56203de3b4028d6f3d80187b3d9fa028295f"
+    },
+    "list_business_process_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "279c53a3355dcf20cc2b84172778053a1d5d35bc21daf283255adb4a7942abc0"
+    },
+    "list_business_process_review_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "6f113ae9a4dabdf69e3ee2405a1fbbd93fc2d4ca0bb59ab3a15376ce80268432"
+    },
+    "list_business_process_criticality_levels": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "98db0f5167293d56e17defb3e844329564331506ac2080397ad7262fff45ec42"
+    },
+    "list_business_process_tags": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "61ac935b4010e64a914362e4f2b6ceb2826d944a98570ba36fcd31ebcc1a9a0e"
+    },
+    "create_business_process_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "6c811691fd9b9e5959f5c70f8f449861e89a4a43606388b4fadd0b3717fbca7e"
+    },
+    "get_business_process_tag": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "e8a7057de352f50a87bb7e28985bc6f15c1f15f21086efb3aff0cfd27d6b8194"
+    },
+    "update_business_process_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "196ff97e726cb3dd06b8cf6701cf6cacc4e6ef91ab84f08c44c421de66f96b75"
+    },
+    "delete_business_process_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "1c3fbe368237f719f935a61049f9322fac427bce66a44f22c0f62b19fd5c3254"
+    },
+    "list_business_process_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "ddf13fe865926ba0de46f8912c559d8500822d61116b1fe5480c4f89c4df870d"
+    },
+    "create_business_process_type": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "6e633f0879deaa9dc4bfd0438f216c051d420cc8b00f9c07587edc4fa5a64813"
+    },
+    "get_business_process_type": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "5c3c82070d3def5af9f0295d7b4f927eef2383ebe6c0d43291327557a2499692"
+    },
+    "update_business_process_type": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "9f7d522514f57b84bfd32795a7cbf59f6583300f13d92ab4913537f446edb6bf"
+    },
+    "delete_business_process_type": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "7ae6e5835379aeabbc5277cc7b98b316b3f1c8ef83214e2ebd2ad4f1b3fbd14f"
+    },
+    "list_compliance_registers": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "92f905c7f848e1ce25e30202d78be79e6485077b45594b621c5c1396cabcd999"
+    },
+    "create_compliance_register": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "d7250a0200dce60bede5647cba1dd64dedb1ab9fe74151f89fb129a70138bce2"
+    },
+    "get_compliance_register": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "d988314fd7d9c3db3b4446faf9f9c659be9f9393b9e3ed1b7d6d1d89aeefab5b"
+    },
+    "update_compliance_register": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "2b674e105362362bce2e2931ddd8299538090ea49583a517e05150ebe7697f69"
+    },
+    "delete_compliance_register": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "ddb16dae8c47bec96f84d29d0cd5a827a7c3f3072b238620fbb1556e161d6e2d"
+    },
+    "list_compliance_register_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9c4fabea4f1d0e267119dd4a2af2d80d90fbc315bfe23934e50b2c71d9c8d868"
+    },
+    "list_compliance_register_groups": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "63b1e640da40347106eba7e5486be7656012738e2e6549b9b330d805ba4775a9"
+    },
+    "get_api_info": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "ebcbc9e0e64993bd9b605b0871a8e27375df76ef0b832dd8c98ceb8aea8f103a"
+    },
+    "get_incident_isb_assessment": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "d744774b2f97a4700f9d9273a65b10469247d259a66b971a82878535d1f2f232"
+    },
+    "update_incident_isb_assessment": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "632c7dedbc48ee66994b718d62ad286a76c5db59d428ae94b63ba557597abb05"
+    },
+    "get_incident_dsb_assessment": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "f1230114d6d4e2500933ea64c5fcbb6651d266c3f1b45e3411d655660c837652"
+    },
+    "update_incident_dsb_assessment": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "821b21b5288ceda601d609506fb0c83151c07c159f993c98f3fdec82d37f6243"
+    },
+    "list_incident_information_security_classifications": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "b7a8b9c10a4cc4035552c359d49de1fa228c177cfa81f0c2b66a12ed1197307e"
+    },
+    "list_incident_situation_assessments": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "98e434833bdb3bf4f3dd674145df7eb8ff253ad84b8b9e378a89bbd7ea1fc7a2"
+    },
+    "list_incident_data_protection_risk_levels": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "be84d102d9c34e82f3e6e26c172a354d89c8c53c3fece0dd0f6420f596bbc65c"
+    },
+    "list_incident_report_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "6402a09995f05391c3516b937dd5483e52dfc615c3e1e359a0dc99b08f58d932"
+    },
+    "list_incident_report_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "aba16a2837066e417d32b56c23805ae88562561a46fc8ac37e24777cfd725eed"
+    },
+    "list_incident_reporting_deadline_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "c99b5d794361b6302a21104e2ea6dc9e12d80f5abf977234250b3244f4fa3c6f"
+    },
+    "list_incident_reporting_deadline_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "1c103eb95e1c42a178dd5b0e65ee79b441b1dd8d579298e1f5ee89bef2860d58"
+    },
+    "list_incident_notification_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "effc70fb3d2dab0eacb53a8025852c1c8bcba0877cc1c4010ecf118c26ac74f4"
+    },
+    "list_incident_notification_exception_reasons": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "c2b6974fee3d1f3c7cbcd94178bbc856702b5733a87759de6a99613a4471a5ce"
+    },
+    "list_incident_response_plan_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "64046f428c27933bc602c5f35556a051c765767920e742639e9ad580910c31d0"
+    },
+    "list_incident_response_plan_action_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "672ac98b5683f860636df38b64c23e3edf3b086e6a60e4c7d6bfabae0d8722f9"
+    },
+    "list_incident_response_plan_action_phases": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "10e96942e0c9715f82cb19975b50bd0496e2d48386617b7d373e8649e73ce55d"
+    },
+    "list_incident_report_channels": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9f57600ad94651db0bf209565b01e9610f236aea0d88243034bce8b6ab6c4155"
+    },
+    "list_incident_attack_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "50fa61bc3bd7629ecd1542593b91cfe51fb84c3f1245263dde010e2685d07f00"
+    },
+    "list_incident_breach_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "125202d5d6c4c744930ebb00e2aa002b20904fcf7317952bc9c9fe1d9298770f"
+    },
+    "list_incident_consequences": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9c0388b4e2045489f81698358d6f93db0b691d2e839c6360250548f98c08f747"
+    },
+    "list_incident_authority_reports": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "f4e653daacbeae1f3dbdd79500ab4bd091c2e62f24ed67cc2aa494a1bc2ddd88"
+    },
+    "create_incident_authority_report": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "4bf996e23590138f7928d779d5235c403ef324214790446fa4528f0f6f952f50"
+    },
+    "get_incident_authority_report": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "4c7e9d2c90a1bce94c3415c6372a8ec91ba9dc8ba34262cb8e0d90144088bfa8"
+    },
+    "update_incident_authority_report": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "b7dcfa2c3e42d4d7442a04eabed5098e97144adc5868fa0904388adfc5561c83"
+    },
+    "delete_incident_authority_report": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "161880da369acc6aae363a84ab9b2dc5d6c7e50827b6a9c52c9700908242962a"
+    },
+    "list_incident_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "7bcda935a6a901560e872e273ed9ead411f0fdeae93676bd079187456fb0e619"
+    },
+    "list_incident_relations": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9da4596b46d8b8069c9ee4a79718d9a0b2f1c8342031a501dda5b01fd1d3d943"
+    },
+    "list_incident_immediate_action_templates": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "d497b64c1460bf067f625889f415d897010d51e803a6814f640a378484a87f2d"
+    },
+    "get_incident_supervisory_authorities": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "8c38b590d23274f6988e16b858542c1c3b0efead373dffa7df7aefee5bc269bc"
+    },
+    "list_incident_tags": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "35467e8c2477f8884ea6bd62b3cbd3a570761576642bc3c6bc96dd26e5c58c87"
+    },
+    "get_incident_settings": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9fd289d2de21739a31505792d9e27fa5d6d9de7b1ac9eb18de9bdd0bf0eb1a39"
+    },
+    "get_incident_cia_assessment": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "df539ec3f6b3cc7cd5c7ee7679051e9dce7121ca847a06cd925cca50e9fdb042"
+    },
+    "update_incident_cia_assessment": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "a5c83d32a78b3448bf11f0c05751ad1d8687eb3cf84ed6a10ba9c3ed7c812239"
+    },
+    "list_incident_comments": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "4e3a7dc329033c1ea15d05193581660cda95cbd7333d7c6fe680af135c35111e"
+    },
+    "create_incident_comment": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "dab965a1b91987cf85f5cd2c6689acf5ea1449449160c6e0de62231167a042e5"
+    },
+    "list_incident_history": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "fae38723afb2cbbbff5964f44b29736859e720efbb43542d8059db3b811b3140"
+    },
+    "list_incident_tasks": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "0608e7bbe008e33e7c0da545d5d1f35ba16d1c271953c4caed9c4a9e408653e2"
+    },
+    "list_incident_documents": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "aa8e7e32912e870e717458d4569247834cf5b9dde2082888a796bd66f4b56a52"
+    },
+    "upload_incident_document": {
+      "signature": "(file_name: 'str', file_base64: 'str', path_params_json: 'str' = '{}', payload_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False) -> 'dict'",
+      "description_sha256": "40b9615c24932c5ea8d60d59a5039c6215fc68b24098aaa7200e8976f73fd77a"
+    },
+    "get_incident_document": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "53f6ecf857f6fdd21e4c7e5246c01b1568c9ca8456ee18907ec0a4b4f1750e3c"
+    },
+    "delete_incident_document": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "ebedd07de681d2ad35edead3d94777669871ccf1bbf7729795b731821291d3d2"
+    },
+    "download_incident_document": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "a6c85853985e7f35559959355a8b5a7e73f1bd5df7fc4844d088f94bf19a7f27"
+    },
+    "list_incident_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9eef5a3bc1ae15866d58ba101a9d51711099a184b74af95c34447213a9897be7"
+    },
+    "list_incident_classifications": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "fda753ad8df7f8e0b8b8c066928dcb25e0227a3de35e0011896ac6c7fdc532a6"
+    },
+    "list_incident_sources": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "2f9da8197ab89c929e5e9117ea8c0ace9c8f5fa88a7d4523aa2d05476b4e8e2b"
+    },
+    "list_incident_severities": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "bd24cbad942d4fff07dad0a0f245727267bc3c846da21394175253ad9f571679"
+    },
+    "list_incident_closure_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "a3b7bf56ce753fc39114517fcfbabccd5390b6e6d5c35dab2ac96fbd04811184"
+    },
+    "list_incident_cause_categories": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "fd1f57b3c8aed5a003d67c0ba9d464c1ff980ecdef9862f81caf08a4aae771a8"
+    },
+    "list_incident_evidence_categories": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "cd0fd556f81ec9a34d0d4618dddfd5247f4c5715c12226136971618af2527282"
+    },
+    "list_incident_improvement_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "25f0512771e9fb4b9693245371e2726814fc5798a41287bcfe9a125339474cf3"
+    },
+    "list_incident_immediate_actions": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "387f2b885f861ee1f4813edf895d9b2da023edb2ff7722ef0cc514f5cb1146a7"
+    },
+    "create_incident_immediate_action": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "51f10671ec7f5191bfe197adfb1a1033259b1167902cb75330c2d0390ffa58e5"
+    },
+    "get_incident_immediate_action": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "d3bc40a1016c672fe576b88c43a7045a93f07a91644c64c2bef90048d1df1dd0"
+    },
+    "update_incident_immediate_action": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "0564649b7bed070b16163dc23547bbdccbb45c8196644805b5432301ab5f9d8b"
+    },
+    "delete_incident_immediate_action": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "c4f50984bc57702e3d51bf03710f34f467e770780bda5e1627cd93317f309d6f"
+    },
+    "list_incident_improvements": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "d997cac46b495165ec8ffc6c4468ea7260756341df9e366482742c3a320ed52d"
+    },
+    "create_incident_improvement": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "da58378b84a82dfbe1afda5f0f4c1c01de2634f81aff99e935c906039e00315f"
+    },
+    "get_incident_improvement": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9502cf97bb8e556018f0fe3eb61bd7ac46737e23875d7dcfa8aec7c9c8c64b33"
+    },
+    "update_incident_improvement": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "1efdd399a9c8eaf8bfd286f3b00d95ab39d801b13a8ea857ad0c6d0907cce6dc"
+    },
+    "delete_incident_improvement": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "ff4a139cc83b5d83cc5e65487e9064ffc15574587d9322196bb42b40b1b007cc"
+    },
+    "get_incident_lessons_learned": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "0be32c4832f7e24893e90424e7ea25dded34c726e4a0b080e9d35b1b9283380b"
+    },
+    "update_incident_lessons_learned": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "23aee9aca45ad4c1158e0b9bb163c26ad81b4e7effb03ce3e189830bf1fbfd53"
+    },
+    "reset_incident_to_open": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "350e641026ff679e09cd44d96c2ee0c384e4ef93d6f419c0d759e2caf179937d"
+    },
+    "archive_incident": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "69702d4decbb8d41314f6ab014e844dd41c2fe48522d3b2a361d2672646e90f8"
+    },
+    "restore_incident": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "61e9af51237db504ed447d574ce5f7762f16b638be8576829c80db4c710240c3"
+    },
+    "list_incident_processing_activities": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9fcbec4a1abac8cab6efe4a3303e2aa47fdd2ed11cb68bd3ba019ad1321c9b7e"
+    },
+    "link_incident_processing_activity": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "544d3d33c77f05ddabc27070b367da143fe17c3150b6f0885999182be6cb9d70"
+    },
+    "unlink_incident_processing_activity": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "e7d3eb0992343389c22dfa23547ec0caa3978d21e732decdfd9c665bd38ca766"
+    },
+    "list_incident_measures": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "bb30fa68fac6b99da8c350137f38f8b735b961b48944a6277a230e9f96a5b617"
+    },
+    "link_incident_measure": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "2e0e12751f97f79f7225bbf36111bf3053c24bb8868bd1935dac4c40ac0d36be"
+    },
+    "unlink_incident_measure": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "4656423829e3a1f9cd43b22c0b7ecc6d37bb263b1dd02c71bb59074fa01aad84"
+    },
+    "list_incident_assets": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "2f0255d1ea69189cbf352905fd176fb1b1e045a1fc6bbea196263aec9d781beb"
+    },
+    "link_incident_asset": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "9dc85ad585baa71320926f437586ea955fdec713c99c091476f59c785211d6c5"
+    },
+    "unlink_incident_asset": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "898e574c647124d8b34ba70a1cec2b9f146ac0196c203a7d19d67c96c5684513"
+    },
+    "list_incident_information_values": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "258e2bf2510b4b3ff35cbf248d4728bf8f3d65bc633027f3661f907a66f99103"
+    },
+    "link_incident_information_value": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "3e9f7ad30570fa7af454d3b414c81928c994cc19c8a312d5fa48a34e57a37776"
+    },
+    "unlink_incident_information_value": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "8af24cceabfe1168e65773918d84a6a3bb9c09ae703c55aa9ddda48bbaef3000"
+    },
+    "list_incident_service_providers": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "3eff427af3ae8aebde30a172054ebe60124fd5c347b79964945292b4e00bc316"
+    },
+    "link_incident_service_provider": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "c2dcb2f72f3e803323cb19240b031dbd4a1f97447c2abdff12e49a170d140995"
+    },
+    "unlink_incident_service_provider": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "72f9bfb0895f585fa4bcdaeb1e65b645848458b0635a9b4b486c86970a41ea9e"
+    },
+    "list_incident_business_processes": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "b2e0fda007c5ab12763edd3a6e74995b84f9894250c2865e513f01f54c205bb8"
+    },
+    "link_incident_business_process": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "485a1bf09684f23d6d48d4666ecbb56c28c2b046a1ed13cd64971b5672a568c1"
+    },
+    "unlink_incident_business_process": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "35e9891e8a1128f95d7e4562054290c0add9788ebd5ac325c0549cb699f82d30"
+    },
+    "get_incident_data_subject_notification": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "1be7bbcd053ee16f7881cde6dfe78d09aa9559def0cd8948216d1a41b5ff27e1"
+    },
+    "update_incident_data_subject_notification": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "cfe12d602a28ef1f0d284822c06f78917c90219be394ff323f982d50ce81ea90"
+    },
+    "generate_incident_data_subject_notification_template": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "291beaa6dabe4d6b9c9160dac3e6c7a5c599115b3e1de9361401dc7427d5290e"
+    },
+    "create_incident_gdpr_initial_report": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "3adc4a7107a387ac85862b6912523e97203ace222536146a3863204575539771"
+    },
+    "create_incident_nis2_reports": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "decabf9f6cbc3f3c832297c780aa51031f9a326e182fb74d394f40008b43db14"
+    },
+    "list_incident_reporting_deadlines": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "bc2223a19ad63f1d57c5f48a90c277a23105f8d360fab3bb145e8aafbc5f3511"
+    },
+    "list_incident_response_actions": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "384ccf81d666bcdad85d6dacd98fc83caa3497e49ffaa6c05ce2cb7b6e064168"
+    },
+    "create_incident_response_action": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "5ad72a09be960793da34ab8a47ea928c4e713909e5de54857b64d6773d9ed0ea"
+    },
+    "get_incident_response_action": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "38310ac556d969c57993410679614160ddca1e5034ec5f176a64eef03cde4b94"
+    },
+    "update_incident_response_action": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "1fa1afe49e9cae4b19d3da98225678d65118aafd9efbf62cbed776f954b40857"
+    },
+    "delete_incident_response_action": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "250c06289bc4ab10fcca11b8af62d638d67cf665c9139f489c87f6547bdaab18"
+    },
+    "create_incident_response_action_task": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "2ddcb96bc72a1f2cd86be4db5710e7e6912f6fbe302d82a5209a2e1f4e9a6205"
+    },
+    "get_incident_response_plan": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "4cdb4d6204c3f0febe021b6ee5b263fe0aa42512f064ca5293c8023a06556695"
+    },
+    "create_incident_response_plan": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "5a1107e265e64158dcd6b014fd2f640b2cd848b0bf683411c3bfb1f6021853f5"
+    },
+    "delete_incident_response_plan": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "ef42acfd80a35cea783e2f1403284f35a7884b497b91bab97ec77a3038eeaac5"
+    },
+    "list_incident_response_plan_templates": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "b318ab5826a3108c408d201b575a8fde999b7becc5b4dfd60baaf43f7abbcdb7"
+    },
+    "submit_incident_for_review": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "8d017c796b3088f3538842c8c69f556a6e4b4e550628e08495fef1e86a243e34"
+    },
+    "close_incident": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "73b8c75d88d05de39fb4988238f2e6d5f2acecf1102e2bb7daa2d7863341fcf4"
+    },
+    "close_incident_as_documented": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "ad3a8a08f0f2fe3d94b1c3aa9a26d55cb48fc20af8d8977b08697a670b149bf9"
+    },
+    "reopen_incident": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "1954b757bf97f8a47e7b1a5a17e5f3b8d6195ead0eca28cef1aafea79cf6062a"
+    },
+    "query_incidents": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "c947048f493a3920b31a12e430c019b003de1fc14aa6352b28ece764ac3ee5c2"
+    },
+    "create_incident": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "77e08a2ed376fee5f368423e376dea268def720ccb66743d9be6497e658261b7"
+    },
+    "get_incident": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "ebabbd8e3f40ba6f36100a79a7eed6a50098fa40c6d471213177a25fa88cfde4"
+    },
+    "update_incident": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "7fc4542432f39bf2407854ca289a73cf16726649a396c9dc6e6479be6d9c7257"
+    },
+    "delete_incident": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "79d67dc4f5587d596a8c6d0e005c797e3985d3bb6c9ab5d7bb32cbfae29cb60a"
+    },
+    "list_information_values": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "128efb26a0006e9c67c41d0250fa8efa398c66175ac44f5f6cd356a634b00fc0"
+    },
+    "create_information_value": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "aa0804a78ab926695dedf1f7fd312f8cd899872324a537e74ba5d5629cd3337a"
+    },
+    "get_information_value": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "bf08fa50cf8d99f86c8179e4d1f04c8d781ec38fc2788229d13375a8a1949795"
+    },
+    "update_information_value": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "1245907e57c1159005ae170fe1173e821ad34eb04882142ae5eb94b3c2d68377"
+    },
+    "delete_information_value": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "4c3e35a34c70446217c7fb7653684875f6735e4db14ddb0a1d470647b0eea49d"
+    },
+    "list_information_value_protection_needs": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "ef261a7a1c84a00f654b46573b4076a438362c47c42ed92e99d98943f79204c4"
+    },
+    "list_information_value_review_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "b4154e6020d6ce8715e6f30029d7e142d6c92dc36d4ca6791a5068370724fdfb"
+    },
+    "list_information_value_tags": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "25ddc3220298f2c03b145aee7c0f7000cd788f611109b7e568152e367299915f"
+    },
+    "create_information_value_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "9d1341b752a2c27c8971e49a7f3dc8c777aa6b5fb2b645e8d924b3f289892ccc"
+    },
+    "get_information_value_tag": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "b7765be95eed3bcaac9538adad51f9fcc42d80200ced099a82e9e2e41dbe7e76"
+    },
+    "update_information_value_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "6a0bfe521a3d5b45d742b6f4589e64d85bc035a20b10b7ebf185235e98cfff83"
+    },
+    "delete_information_value_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "fc8d826136fb87075eb5b2ed17604ea6e78ea55543a6ec5adcb5c0c71e18bb00"
+    },
+    "list_information_value_text_modules": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "a305258a92fa9bea3e07018fe6989ba21502e232d8e6bdea069cb6e81b3610aa"
+    },
+    "create_information_value_text_module": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "6fa829b6c0d01d1f4f81e3b67423ba6a047b6359b9879476a3ce5f3991abf46f"
+    },
+    "get_information_value_text_module": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "39c9e7b4ac92a313cc5dbf0da76aad4aba367846133d0d2e7e5421a415e6d1e1"
+    },
+    "update_information_value_text_module": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "5bd0d613b6ebb27c100646b13446d4135f835743f0460be2929e8edf2b47d5e5"
+    },
+    "delete_information_value_text_module": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "8b0b74a9c8281d50d9310f8fb3c85675703c7d104643e00178dbce8a61dff08e"
+    },
+    "list_information_value_classifications": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "82e5565f25203698a38a85e1e3a0f250710bf8d1d5e52ca18add2c69fd316393"
+    },
+    "create_information_value_classification": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "48cfb45953d0e7b69c341c162a9f61a326c236cfcbfd4656a921a0754cce657f"
+    },
+    "get_information_value_classification": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "861e92b2db8dee90b76118b8f40ab4933611fd54c4848423d06b6aef3be58692"
+    },
+    "update_information_value_classification": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "06a9f6484ffcf96b70934a7c712de43c55f84a4d724aa369b5e59cae9935bd1c"
+    },
+    "delete_information_value_classification": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "19f98d03ea4c9bb5055408c741f659a7a2ba28534ab6fa1b442e6ac9d6925f04"
+    },
+    "get_client_info": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "dbdcc51c5e3fa48341f38265a9e09a94a7b3c4883d7b378b1334bc1058c9ed3d"
+    },
+    "list_measures": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "1b17cf590ea06665fd2911b3a2596a3583cc57c01623a2b9b6970a4ea727753d"
+    },
+    "create_measure": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "fac40439bbea7a3656745d1e8495d5a9466363f164fda1b0ff754481638d3e0b"
+    },
+    "get_measure": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "e194b04a12da3c8b1b347a418d94faaac9b828f53be9f906f5f2de3f49c334ce"
+    },
+    "update_measure": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "6f0d24d211895f872b00cfbe556afbfecf65c9861cb9ada56ebe7830260152c8"
+    },
+    "delete_measure": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "3bd84331515ca2b304b8f401554558674fc25ccb15e20ba820ff55d69a3dd65d"
+    },
+    "get_measure_by_maid": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "e3686fa12d45d25f08392108297bd2bb0bf1efe1d294bbad9365e7fb935986ce"
+    },
+    "list_measure_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "b72f29577a73e5f558d56b1588b1bf65692509f4ae507f2111f6c72b7f50f80b"
+    },
+    "list_measure_implementation_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "fbaa2c5b47cba4929a1110e2ef04303ff5662bd06650aca76b13cb9ff0e0dcaa"
+    },
+    "list_measure_review_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "a622ee0c2203a4054b43aaa30bad71fbda30f5396fc3204c433e516775e7e8d3"
+    },
+    "list_measure_threat_categories": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "b643cd44f6b24a6e2e318cfe6eb9521d676e1b82f3fde4314387e911940bc34b"
+    },
+    "list_measure_tags": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "f9f688bea867576d745e992e6cab3afbd53b50a582d120678ef93ad4d1f5851a"
+    },
+    "create_measure_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "f6c90b653a5a6c02e9f61102910cba51981cef9120c74b1fc80c1df635afa64e"
+    },
+    "get_measure_tag": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9b8dd038d3972aa6bb50ef1ef262d1245ac625a6043c0ef42057ed130d9248e8"
+    },
+    "update_measure_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "b39c217bd3efb955b38a1ef0c15eb71ba022349e02eab7aa349230f961d24399"
+    },
+    "delete_measure_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "e269dffc095c94c19f7d1899ef7d3d444dc216c064ee87baf555fb863f1c151c"
+    },
+    "query_risks": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "023dafa8bccb8c49d5f109a2ba7e28015dd3f2a22907f057b61b8f90b3238577"
+    },
+    "list_risk_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "ef94ee0652a42e42c1513c66c5ed10a816931ecbd352907dae5ab349bbb84f60"
+    },
+    "list_risk_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "5afda3789192e2de9c445c721e959c83b9587a0643490a05fe51b22e8d9bb5d9"
+    },
+    "get_risk": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "2ff1e7309c761a6401e6af895006d48df4d1e72e3b8e6c8fec83234f6a847b22"
+    }
+  },
+  "modern": {
+    "create_task": {
+      "signature": "(subject: 'str', description: 'str' = '', priority: 'str' = 'normal', due_date: 'str' = '') -> 'dict'",
+      "description_sha256": "6469c4640763a74dca4f6ca0b57be62e41137535bf4e85130fc3093e90e25ab9"
+    },
+    "get_task": {
+      "signature": "(task_id: 'str') -> 'dict'",
+      "description_sha256": "113ed79857f899fa16cffeeb5b2616ed56ce5c51d0efea149f2d0cddc8ac645f"
+    },
+    "update_task": {
+      "signature": "(task_id: 'str', subject: 'str' = '', description: 'str' = '', priority: 'str' = '', status: 'str' = '', due_date: 'str' = '', clear_due_date: 'bool' = False, assigned_to_user_id: 'int' = -1) -> 'dict'",
+      "description_sha256": "534ad3757fa0769072be505bcf9ce34c8342b73c04d4bd311066400d6e677797"
+    },
+    "list_asset_categories": {
+      "signature": "() -> 'dict'",
+      "description_sha256": "ad8f686f6c3fc84b1559c5a3d422237884586732232275d6e1f170fa88208db6"
+    },
+    "list_asset_types": {
+      "signature": "(category_id: 'str') -> 'dict'",
+      "description_sha256": "7f7887bfcf2e1e931d427c97e98eb84663ccf074bb01fa8d1e745fd7d42aabe7"
+    },
+    "get_asset": {
+      "signature": "(asset_id: 'str') -> 'dict'",
+      "description_sha256": "427b7378f8eab58a1474f7cf3587ca216c084d08613e7a576a0ab8a189c71577"
+    },
+    "create_asset": {
+      "signature": "(title: 'str', category_id: 'str', type_id: 'str' = '') -> 'dict'",
+      "description_sha256": "4e2c793b492cf040aac73347a0f98c8bbe04137d892e6c341b0179b24ddd0878"
+    },
+    "list_users": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 100) -> 'dict'",
+      "description_sha256": "6cc198e427e2fd9dbe5cd18681e9508cf9a0247031c899eaeed007cfb39d9e47"
+    },
+    "update_asset": {
+      "signature": "(asset_id: 'str', asset_owner_user_id: 'int' = -1, title: 'str' = '', description: 'str' = '', clear_description: 'bool' = False) -> 'dict'",
+      "description_sha256": "49c8de66c4c017f60a711c7ad204d5501f2d2ea055831069bc55f54089f1b8ad"
+    },
+    "list_asset_protection_levels": {
+      "signature": "() -> 'dict[str, Any]'",
+      "description_sha256": "5ece60116c6829a63cc4c335126e5ba80322178d080d49264bb45de7b24b2ee8"
+    },
+    "set_asset_protection_needs": {
+      "signature": "(asset_id: 'str', confidentiality: 'int' = -1, integrity: 'int' = -1, availability: 'int' = -1) -> 'dict[str, Any]'",
+      "description_sha256": "cf7baa37721df86ebe6048c0f2d593f166f6356fcd5fcbb5c6705b8532056421"
+    },
+    "list_assets": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10) -> 'dict'",
+      "description_sha256": "342d980b79e47546617d9cab0088ff254f305b18e6e1e280138c7d0baf87ed46"
+    },
+    "list_risks": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10, status: 'str' = '') -> 'dict'",
+      "description_sha256": "87271a2146f4bc3be2bb0a0c83b43428b8489af6c6d3ca35ddce5c4987751b7e"
+    },
+    "list_tasks": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10, status: 'str' = '') -> 'dict'",
+      "description_sha256": "58e95e37948f3a2238580e22c48cd6f2bdcb3d65f8b43eab678f7bc7a07d4de7"
+    },
+    "list_incidents": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10, status: 'str' = '') -> 'dict'",
+      "description_sha256": "4c94d0ee6e9b9b4953ef8f955539eb53b34a4b3d065936a50dd485f7d27409bb"
+    },
+    "preview_create_task": {
+      "signature": "(subject: 'str', description: 'str' = '', priority: 'str' = 'normal', due_date: 'str' = '') -> 'dict'",
+      "description_sha256": "f5a7560b806fff6af0753102189003ac40f33bc84edda06bdb81d3eb8b8a9481"
+    },
+    "manager_capabilities": {
+      "signature": "() -> 'dict'",
+      "description_sha256": "97d6ab39ba0af5f7a92c26c051b302fa4f33ba0662378285aff289603fbbac39"
+    },
+    "list_records": {
+      "signature": "(resource: 'str', page: 'int' = 1, per_page: 'int' = 30) -> 'dict'",
+      "description_sha256": "0277459806126059e31eee7fdbd3c8834a4949e422876c12502013813abc4abd"
+    },
+    "get_record": {
+      "signature": "(resource: 'str', record_id: 'str') -> 'dict'",
+      "description_sha256": "7d387f0c680d277c0d73d4f64800d34d226bffe2131862547876fc885e3610c4"
+    },
+    "lookup_values": {
+      "signature": "(name: 'str') -> 'dict'",
+      "description_sha256": "fa0d097fdf6d04e2b3f19e7d7429d8595f626ed3d8743eb317f952e849fe832f"
+    },
+    "create_record": {
+      "signature": "(resource: 'str', payload_json: 'str') -> 'dict'",
+      "description_sha256": "12024b05366a1444c23a1627ec2d848f5613ac2045742d391d983a6644c9fefe"
+    },
+    "update_record": {
+      "signature": "(resource: 'str', record_id: 'str', changes_json: 'str') -> 'dict'",
+      "description_sha256": "228d0e01baedbf354192aaf3e615c4d247d5d77982b01b1eb53f3d5bd63eaeef"
+    },
+    "list_incident_links": {
+      "signature": "(incident_id: 'str', kind: 'str') -> 'dict'",
+      "description_sha256": "bf4ee8bda3a6eb36dfc4ab0a102e92b0349f4a03b3c8495cf62ab3eb20b9fe53"
+    },
+    "link_incident": {
+      "signature": "(incident_id: 'str', kind: 'str', target_id: 'str') -> 'dict'",
+      "description_sha256": "cbcdef045c9be0accd1bc6e2cec1c45b0bd1a115ac6593004e4d1b447a6d170c"
+    },
+    "list_audit_log": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 30, entity_type: 'str' = '', action: 'str' = '') -> 'dict'",
+      "description_sha256": "358790c14ab12a97370c72324e8c359968de9c623ef87f17d34cb9651374d798"
+    },
+    "bulk_create_records": {
+      "signature": "(resource: 'str', items_json: 'str', execute: 'bool' = False, check_existing: 'bool' = True) -> 'dict'",
+      "description_sha256": "16e804f02da5d3d8f9516311336fe12dbc27975e687c9bc81860a7bb6908782e"
+    },
+    "bulk_update_records": {
+      "signature": "(resource: 'str', items_json: 'str', execute: 'bool' = False) -> 'dict'",
+      "description_sha256": "d899e3fbe290d42be4dba870469c17ace95f8ef8f32888480c3c3d311a289fd2"
+    },
+    "inventory_snapshot": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description_sha256": "53628ce02c964c1a42ce7c25dd7704ef9e25a96b18b6e7b1cabae63584c38ae6"
+    },
+    "asset_graph": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description_sha256": "3bc089f24f1153f6f74760085a8e54d8e6a117a5395eb291c8c70e5a6f64d108"
+    },
+    "documentation_gaps": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description_sha256": "e1a4cf9f477a5ec59cb52474507586e02634d26205daca6ff3c53e87a68e77dc"
+    },
+    "find_duplicate_tasks": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description_sha256": "2e2cb3369daa2d267602ecbd668408eae5461001e20cf580e5904b04bbef2e2c"
+    },
+    "relationship_capabilities": {
+      "signature": "() -> 'dict'",
+      "description_sha256": "6f388df900e47bf7b11a7434106f9887883a1e6690dd94282c27bc1e42ca2daf"
+    },
+    "relationship_graph": {
+      "signature": "(max_pages: 'int' = 5, max_edges: 'int' = 3000) -> 'dict'",
+      "description_sha256": "dc3f95fcf9aac2fe5e9c55bac6ab331219189d7f7933fa09ab1f3804eac88f52"
+    },
+    "related_records": {
+      "signature": "(resource: 'str', record_id: 'str', max_depth: 'int' = 2, max_pages: 'int' = 5) -> 'dict'",
+      "description_sha256": "2dc9fdab50cad056eae772232c7bf0b4df6fa4f450b84bac6f779e117cba04c2"
+    },
+    "relationship_audit": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description_sha256": "7aa20609f28f681ddbccf1c5d5f5f11f862e0f9e3b335371fe89f6275a614348"
+    },
+    "bulk_set_parent": {
+      "signature": "(resource: 'str', items_json: 'str', execute: 'bool' = False, max_pages: 'int' = 5) -> 'dict'",
+      "description_sha256": "0e7f6844bf2ddf7a2ddef8d5372c88c81ee0aee012f04f5a328d839a09a5ff67"
+    },
+    "personnel_capabilities": {
+      "signature": "() -> 'dict'",
+      "description_sha256": "d12d0d36049921ba6dbf7a0e474882e41f2595ccbcaf4d3e4ff7b370dfa43bff"
+    },
+    "list_organisations": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 50) -> 'dict'",
+      "description_sha256": "ca49d32ede4e4a04c0e0b57c3d068e42c684712728be2e4ccfb5c2b617685a05"
+    },
+    "get_organisation": {
+      "signature": "(organisation_id: 'int') -> 'dict'",
+      "description_sha256": "754298a589d3dbf8c70cb003b141a4c80fa0cabbe3bdda8efb65fc1925e8e28b"
+    },
+    "list_personnel": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 50, archived: 'str' = 'false', q: 'str' = '', organisation_id: 'int' = 0) -> 'dict'",
+      "description_sha256": "07d76f2070a17f4daa26be99e28b4fd7dc5adfe8a9f3dd3d0687bb0d0cdc7dca"
+    },
+    "get_personnel": {
+      "signature": "(person_id: 'int') -> 'dict'",
+      "description_sha256": "6e353394510d8e0ba971a544181a773bee9c6b04fec2e235114adff5e52db163"
+    },
+    "create_personnel": {
+      "signature": "(payload_json: 'str', execute: 'bool' = False, check_existing: 'bool' = True) -> 'dict'",
+      "description_sha256": "25864374cb637dbcf613e63fdb2c7070531b80076b37f71e61cf7dde8b5957d5"
+    },
+    "update_personnel": {
+      "signature": "(person_id: 'int', changes_json: 'str', execute: 'bool' = False) -> 'dict'",
+      "description_sha256": "feb032f75118fa31626aa7c6bab930f0dfe74ea3f21bdf05d0995c0a4a52b9de"
+    },
+    "assign_personnel_organisations": {
+      "signature": "(person_ids_json: 'str', add_json: 'str' = '[]', remove_json: 'str' = '[]', execute: 'bool' = False) -> 'dict'",
+      "description_sha256": "313dd1b468a578836576e6205db0b1c7597c4961dd0da0bfacea970abd0b8175"
+    },
+    "list_personnel_tags": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 50) -> 'dict'",
+      "description_sha256": "c6a11ebfa6d6395f5ca17405a9f6a45f25b78777b74bf9b91e51eb75e313d839"
+    },
+    "get_user": {
+      "signature": "(user_id: 'int') -> 'dict'",
+      "description_sha256": "0c0846371e2944607b3def67f4c09d731e294d903006b74ddc5a05f91d0029bb"
+    },
+    "get_personnel_assignments": {
+      "signature": "(person_id: 'int') -> 'dict'",
+      "description_sha256": "a82dd30662b2beb911492926643176a6fdbf1ccfde5e36e1e775b72d9eb553f6"
+    },
+    "management_capabilities": {
+      "signature": "() -> 'dict'",
+      "description_sha256": "c7386ad52f720797ad3435548eed7b7381426e5d08edfa0d89037ad004db131f"
+    },
+    "describe_management_tool": {
+      "signature": "(tool_name: 'str') -> 'dict'",
+      "description_sha256": "5dfd08a9f69e0270a5eaa956b474024db50e3e83ea7d239216c00475778516cb"
+    },
+    "query_audit_log": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "7058342a46c7ec426c518f778aa757f2ed31aa45a737f48ea203a1f74fbffbfd"
+    },
+    "list_business_processes": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "c779e2f8a7819a46d9b91f75887f697b3d3a1a966eb17bbdf6f9304f8e867fb3"
+    },
+    "create_business_process": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "b6cea55b0239af737cd828fec0208a07818790a627dc0d5a2a143ffc17c78d33"
+    },
+    "get_business_process": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "7bf1af2ecfe06cc5d472fed2732780d65dd6f248d871947d5385d49556541472"
+    },
+    "update_business_process": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "82728c76ed68263497291733c48d13487be4760856ae81679d85b97c7861be3b"
+    },
+    "delete_business_process": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "96f43d3121d951f57884626c40df56203de3b4028d6f3d80187b3d9fa028295f"
+    },
+    "list_business_process_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "279c53a3355dcf20cc2b84172778053a1d5d35bc21daf283255adb4a7942abc0"
+    },
+    "list_business_process_review_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "6f113ae9a4dabdf69e3ee2405a1fbbd93fc2d4ca0bb59ab3a15376ce80268432"
+    },
+    "list_business_process_criticality_levels": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "98db0f5167293d56e17defb3e844329564331506ac2080397ad7262fff45ec42"
+    },
+    "list_business_process_tags": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "61ac935b4010e64a914362e4f2b6ceb2826d944a98570ba36fcd31ebcc1a9a0e"
+    },
+    "create_business_process_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "6c811691fd9b9e5959f5c70f8f449861e89a4a43606388b4fadd0b3717fbca7e"
+    },
+    "get_business_process_tag": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "e8a7057de352f50a87bb7e28985bc6f15c1f15f21086efb3aff0cfd27d6b8194"
+    },
+    "update_business_process_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "196ff97e726cb3dd06b8cf6701cf6cacc4e6ef91ab84f08c44c421de66f96b75"
+    },
+    "delete_business_process_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "1c3fbe368237f719f935a61049f9322fac427bce66a44f22c0f62b19fd5c3254"
+    },
+    "list_business_process_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "ddf13fe865926ba0de46f8912c559d8500822d61116b1fe5480c4f89c4df870d"
+    },
+    "create_business_process_type": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "6e633f0879deaa9dc4bfd0438f216c051d420cc8b00f9c07587edc4fa5a64813"
+    },
+    "get_business_process_type": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "5c3c82070d3def5af9f0295d7b4f927eef2383ebe6c0d43291327557a2499692"
+    },
+    "update_business_process_type": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "9f7d522514f57b84bfd32795a7cbf59f6583300f13d92ab4913537f446edb6bf"
+    },
+    "delete_business_process_type": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "7ae6e5835379aeabbc5277cc7b98b316b3f1c8ef83214e2ebd2ad4f1b3fbd14f"
+    },
+    "list_compliance_registers": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "92f905c7f848e1ce25e30202d78be79e6485077b45594b621c5c1396cabcd999"
+    },
+    "create_compliance_register": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "d7250a0200dce60bede5647cba1dd64dedb1ab9fe74151f89fb129a70138bce2"
+    },
+    "get_compliance_register": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "d988314fd7d9c3db3b4446faf9f9c659be9f9393b9e3ed1b7d6d1d89aeefab5b"
+    },
+    "update_compliance_register": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "2b674e105362362bce2e2931ddd8299538090ea49583a517e05150ebe7697f69"
+    },
+    "delete_compliance_register": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "ddb16dae8c47bec96f84d29d0cd5a827a7c3f3072b238620fbb1556e161d6e2d"
+    },
+    "list_compliance_register_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9c4fabea4f1d0e267119dd4a2af2d80d90fbc315bfe23934e50b2c71d9c8d868"
+    },
+    "list_compliance_register_groups": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "63b1e640da40347106eba7e5486be7656012738e2e6549b9b330d805ba4775a9"
+    },
+    "get_api_info": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "ebcbc9e0e64993bd9b605b0871a8e27375df76ef0b832dd8c98ceb8aea8f103a"
+    },
+    "get_incident_isb_assessment": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "d744774b2f97a4700f9d9273a65b10469247d259a66b971a82878535d1f2f232"
+    },
+    "update_incident_isb_assessment": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "632c7dedbc48ee66994b718d62ad286a76c5db59d428ae94b63ba557597abb05"
+    },
+    "get_incident_dsb_assessment": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "f1230114d6d4e2500933ea64c5fcbb6651d266c3f1b45e3411d655660c837652"
+    },
+    "update_incident_dsb_assessment": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "821b21b5288ceda601d609506fb0c83151c07c159f993c98f3fdec82d37f6243"
+    },
+    "list_incident_information_security_classifications": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "b7a8b9c10a4cc4035552c359d49de1fa228c177cfa81f0c2b66a12ed1197307e"
+    },
+    "list_incident_situation_assessments": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "98e434833bdb3bf4f3dd674145df7eb8ff253ad84b8b9e378a89bbd7ea1fc7a2"
+    },
+    "list_incident_data_protection_risk_levels": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "be84d102d9c34e82f3e6e26c172a354d89c8c53c3fece0dd0f6420f596bbc65c"
+    },
+    "list_incident_report_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "6402a09995f05391c3516b937dd5483e52dfc615c3e1e359a0dc99b08f58d932"
+    },
+    "list_incident_report_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "aba16a2837066e417d32b56c23805ae88562561a46fc8ac37e24777cfd725eed"
+    },
+    "list_incident_reporting_deadline_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "c99b5d794361b6302a21104e2ea6dc9e12d80f5abf977234250b3244f4fa3c6f"
+    },
+    "list_incident_reporting_deadline_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "1c103eb95e1c42a178dd5b0e65ee79b441b1dd8d579298e1f5ee89bef2860d58"
+    },
+    "list_incident_notification_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "effc70fb3d2dab0eacb53a8025852c1c8bcba0877cc1c4010ecf118c26ac74f4"
+    },
+    "list_incident_notification_exception_reasons": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "c2b6974fee3d1f3c7cbcd94178bbc856702b5733a87759de6a99613a4471a5ce"
+    },
+    "list_incident_response_plan_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "64046f428c27933bc602c5f35556a051c765767920e742639e9ad580910c31d0"
+    },
+    "list_incident_response_plan_action_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "672ac98b5683f860636df38b64c23e3edf3b086e6a60e4c7d6bfabae0d8722f9"
+    },
+    "list_incident_response_plan_action_phases": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "10e96942e0c9715f82cb19975b50bd0496e2d48386617b7d373e8649e73ce55d"
+    },
+    "list_incident_report_channels": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9f57600ad94651db0bf209565b01e9610f236aea0d88243034bce8b6ab6c4155"
+    },
+    "list_incident_attack_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "50fa61bc3bd7629ecd1542593b91cfe51fb84c3f1245263dde010e2685d07f00"
+    },
+    "list_incident_breach_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "125202d5d6c4c744930ebb00e2aa002b20904fcf7317952bc9c9fe1d9298770f"
+    },
+    "list_incident_consequences": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9c0388b4e2045489f81698358d6f93db0b691d2e839c6360250548f98c08f747"
+    },
+    "list_incident_authority_reports": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "f4e653daacbeae1f3dbdd79500ab4bd091c2e62f24ed67cc2aa494a1bc2ddd88"
+    },
+    "create_incident_authority_report": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "4bf996e23590138f7928d779d5235c403ef324214790446fa4528f0f6f952f50"
+    },
+    "get_incident_authority_report": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "4c7e9d2c90a1bce94c3415c6372a8ec91ba9dc8ba34262cb8e0d90144088bfa8"
+    },
+    "update_incident_authority_report": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "b7dcfa2c3e42d4d7442a04eabed5098e97144adc5868fa0904388adfc5561c83"
+    },
+    "delete_incident_authority_report": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "161880da369acc6aae363a84ab9b2dc5d6c7e50827b6a9c52c9700908242962a"
+    },
+    "list_incident_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "7bcda935a6a901560e872e273ed9ead411f0fdeae93676bd079187456fb0e619"
+    },
+    "list_incident_relations": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9da4596b46d8b8069c9ee4a79718d9a0b2f1c8342031a501dda5b01fd1d3d943"
+    },
+    "list_incident_immediate_action_templates": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "d497b64c1460bf067f625889f415d897010d51e803a6814f640a378484a87f2d"
+    },
+    "get_incident_supervisory_authorities": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "8c38b590d23274f6988e16b858542c1c3b0efead373dffa7df7aefee5bc269bc"
+    },
+    "list_incident_tags": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "35467e8c2477f8884ea6bd62b3cbd3a570761576642bc3c6bc96dd26e5c58c87"
+    },
+    "get_incident_settings": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9fd289d2de21739a31505792d9e27fa5d6d9de7b1ac9eb18de9bdd0bf0eb1a39"
+    },
+    "get_incident_cia_assessment": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "df539ec3f6b3cc7cd5c7ee7679051e9dce7121ca847a06cd925cca50e9fdb042"
+    },
+    "update_incident_cia_assessment": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "a5c83d32a78b3448bf11f0c05751ad1d8687eb3cf84ed6a10ba9c3ed7c812239"
+    },
+    "list_incident_comments": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "4e3a7dc329033c1ea15d05193581660cda95cbd7333d7c6fe680af135c35111e"
+    },
+    "create_incident_comment": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "dab965a1b91987cf85f5cd2c6689acf5ea1449449160c6e0de62231167a042e5"
+    },
+    "list_incident_history": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "fae38723afb2cbbbff5964f44b29736859e720efbb43542d8059db3b811b3140"
+    },
+    "list_incident_tasks": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "0608e7bbe008e33e7c0da545d5d1f35ba16d1c271953c4caed9c4a9e408653e2"
+    },
+    "list_incident_documents": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "aa8e7e32912e870e717458d4569247834cf5b9dde2082888a796bd66f4b56a52"
+    },
+    "upload_incident_document": {
+      "signature": "(file_name: 'str', file_base64: 'str', path_params_json: 'str' = '{}', payload_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False) -> 'dict'",
+      "description_sha256": "40b9615c24932c5ea8d60d59a5039c6215fc68b24098aaa7200e8976f73fd77a"
+    },
+    "get_incident_document": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "53f6ecf857f6fdd21e4c7e5246c01b1568c9ca8456ee18907ec0a4b4f1750e3c"
+    },
+    "delete_incident_document": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "ebedd07de681d2ad35edead3d94777669871ccf1bbf7729795b731821291d3d2"
+    },
+    "download_incident_document": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "a6c85853985e7f35559959355a8b5a7e73f1bd5df7fc4844d088f94bf19a7f27"
+    },
+    "list_incident_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9eef5a3bc1ae15866d58ba101a9d51711099a184b74af95c34447213a9897be7"
+    },
+    "list_incident_classifications": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "fda753ad8df7f8e0b8b8c066928dcb25e0227a3de35e0011896ac6c7fdc532a6"
+    },
+    "list_incident_sources": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "2f9da8197ab89c929e5e9117ea8c0ace9c8f5fa88a7d4523aa2d05476b4e8e2b"
+    },
+    "list_incident_severities": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "bd24cbad942d4fff07dad0a0f245727267bc3c846da21394175253ad9f571679"
+    },
+    "list_incident_closure_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "a3b7bf56ce753fc39114517fcfbabccd5390b6e6d5c35dab2ac96fbd04811184"
+    },
+    "list_incident_cause_categories": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "fd1f57b3c8aed5a003d67c0ba9d464c1ff980ecdef9862f81caf08a4aae771a8"
+    },
+    "list_incident_evidence_categories": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "cd0fd556f81ec9a34d0d4618dddfd5247f4c5715c12226136971618af2527282"
+    },
+    "list_incident_improvement_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "25f0512771e9fb4b9693245371e2726814fc5798a41287bcfe9a125339474cf3"
+    },
+    "list_incident_immediate_actions": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "387f2b885f861ee1f4813edf895d9b2da023edb2ff7722ef0cc514f5cb1146a7"
+    },
+    "create_incident_immediate_action": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "51f10671ec7f5191bfe197adfb1a1033259b1167902cb75330c2d0390ffa58e5"
+    },
+    "get_incident_immediate_action": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "d3bc40a1016c672fe576b88c43a7045a93f07a91644c64c2bef90048d1df1dd0"
+    },
+    "update_incident_immediate_action": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "0564649b7bed070b16163dc23547bbdccbb45c8196644805b5432301ab5f9d8b"
+    },
+    "delete_incident_immediate_action": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "c4f50984bc57702e3d51bf03710f34f467e770780bda5e1627cd93317f309d6f"
+    },
+    "list_incident_improvements": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "d997cac46b495165ec8ffc6c4468ea7260756341df9e366482742c3a320ed52d"
+    },
+    "create_incident_improvement": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "da58378b84a82dfbe1afda5f0f4c1c01de2634f81aff99e935c906039e00315f"
+    },
+    "get_incident_improvement": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9502cf97bb8e556018f0fe3eb61bd7ac46737e23875d7dcfa8aec7c9c8c64b33"
+    },
+    "update_incident_improvement": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "1efdd399a9c8eaf8bfd286f3b00d95ab39d801b13a8ea857ad0c6d0907cce6dc"
+    },
+    "delete_incident_improvement": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "ff4a139cc83b5d83cc5e65487e9064ffc15574587d9322196bb42b40b1b007cc"
+    },
+    "get_incident_lessons_learned": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "0be32c4832f7e24893e90424e7ea25dded34c726e4a0b080e9d35b1b9283380b"
+    },
+    "update_incident_lessons_learned": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "23aee9aca45ad4c1158e0b9bb163c26ad81b4e7effb03ce3e189830bf1fbfd53"
+    },
+    "reset_incident_to_open": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "350e641026ff679e09cd44d96c2ee0c384e4ef93d6f419c0d759e2caf179937d"
+    },
+    "archive_incident": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "69702d4decbb8d41314f6ab014e844dd41c2fe48522d3b2a361d2672646e90f8"
+    },
+    "restore_incident": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "61e9af51237db504ed447d574ce5f7762f16b638be8576829c80db4c710240c3"
+    },
+    "list_incident_processing_activities": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9fcbec4a1abac8cab6efe4a3303e2aa47fdd2ed11cb68bd3ba019ad1321c9b7e"
+    },
+    "link_incident_processing_activity": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "544d3d33c77f05ddabc27070b367da143fe17c3150b6f0885999182be6cb9d70"
+    },
+    "unlink_incident_processing_activity": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "e7d3eb0992343389c22dfa23547ec0caa3978d21e732decdfd9c665bd38ca766"
+    },
+    "list_incident_measures": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "bb30fa68fac6b99da8c350137f38f8b735b961b48944a6277a230e9f96a5b617"
+    },
+    "link_incident_measure": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "2e0e12751f97f79f7225bbf36111bf3053c24bb8868bd1935dac4c40ac0d36be"
+    },
+    "unlink_incident_measure": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "4656423829e3a1f9cd43b22c0b7ecc6d37bb263b1dd02c71bb59074fa01aad84"
+    },
+    "list_incident_assets": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "2f0255d1ea69189cbf352905fd176fb1b1e045a1fc6bbea196263aec9d781beb"
+    },
+    "link_incident_asset": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "9dc85ad585baa71320926f437586ea955fdec713c99c091476f59c785211d6c5"
+    },
+    "unlink_incident_asset": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "898e574c647124d8b34ba70a1cec2b9f146ac0196c203a7d19d67c96c5684513"
+    },
+    "list_incident_information_values": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "258e2bf2510b4b3ff35cbf248d4728bf8f3d65bc633027f3661f907a66f99103"
+    },
+    "link_incident_information_value": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "3e9f7ad30570fa7af454d3b414c81928c994cc19c8a312d5fa48a34e57a37776"
+    },
+    "unlink_incident_information_value": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "8af24cceabfe1168e65773918d84a6a3bb9c09ae703c55aa9ddda48bbaef3000"
+    },
+    "list_incident_service_providers": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "3eff427af3ae8aebde30a172054ebe60124fd5c347b79964945292b4e00bc316"
+    },
+    "link_incident_service_provider": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "c2dcb2f72f3e803323cb19240b031dbd4a1f97447c2abdff12e49a170d140995"
+    },
+    "unlink_incident_service_provider": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "72f9bfb0895f585fa4bcdaeb1e65b645848458b0635a9b4b486c86970a41ea9e"
+    },
+    "list_incident_business_processes": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "b2e0fda007c5ab12763edd3a6e74995b84f9894250c2865e513f01f54c205bb8"
+    },
+    "link_incident_business_process": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "485a1bf09684f23d6d48d4666ecbb56c28c2b046a1ed13cd64971b5672a568c1"
+    },
+    "unlink_incident_business_process": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "35e9891e8a1128f95d7e4562054290c0add9788ebd5ac325c0549cb699f82d30"
+    },
+    "get_incident_data_subject_notification": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "1be7bbcd053ee16f7881cde6dfe78d09aa9559def0cd8948216d1a41b5ff27e1"
+    },
+    "update_incident_data_subject_notification": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "cfe12d602a28ef1f0d284822c06f78917c90219be394ff323f982d50ce81ea90"
+    },
+    "generate_incident_data_subject_notification_template": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "291beaa6dabe4d6b9c9160dac3e6c7a5c599115b3e1de9361401dc7427d5290e"
+    },
+    "create_incident_gdpr_initial_report": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "3adc4a7107a387ac85862b6912523e97203ace222536146a3863204575539771"
+    },
+    "create_incident_nis2_reports": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "decabf9f6cbc3f3c832297c780aa51031f9a326e182fb74d394f40008b43db14"
+    },
+    "list_incident_reporting_deadlines": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "bc2223a19ad63f1d57c5f48a90c277a23105f8d360fab3bb145e8aafbc5f3511"
+    },
+    "list_incident_response_actions": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "384ccf81d666bcdad85d6dacd98fc83caa3497e49ffaa6c05ce2cb7b6e064168"
+    },
+    "create_incident_response_action": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "5ad72a09be960793da34ab8a47ea928c4e713909e5de54857b64d6773d9ed0ea"
+    },
+    "get_incident_response_action": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "38310ac556d969c57993410679614160ddca1e5034ec5f176a64eef03cde4b94"
+    },
+    "update_incident_response_action": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "1fa1afe49e9cae4b19d3da98225678d65118aafd9efbf62cbed776f954b40857"
+    },
+    "delete_incident_response_action": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "250c06289bc4ab10fcca11b8af62d638d67cf665c9139f489c87f6547bdaab18"
+    },
+    "create_incident_response_action_task": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "2ddcb96bc72a1f2cd86be4db5710e7e6912f6fbe302d82a5209a2e1f4e9a6205"
+    },
+    "get_incident_response_plan": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "4cdb4d6204c3f0febe021b6ee5b263fe0aa42512f064ca5293c8023a06556695"
+    },
+    "create_incident_response_plan": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "5a1107e265e64158dcd6b014fd2f640b2cd848b0bf683411c3bfb1f6021853f5"
+    },
+    "delete_incident_response_plan": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "ef42acfd80a35cea783e2f1403284f35a7884b497b91bab97ec77a3038eeaac5"
+    },
+    "list_incident_response_plan_templates": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "b318ab5826a3108c408d201b575a8fde999b7becc5b4dfd60baaf43f7abbcdb7"
+    },
+    "submit_incident_for_review": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "8d017c796b3088f3538842c8c69f556a6e4b4e550628e08495fef1e86a243e34"
+    },
+    "close_incident": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "73b8c75d88d05de39fb4988238f2e6d5f2acecf1102e2bb7daa2d7863341fcf4"
+    },
+    "close_incident_as_documented": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "ad3a8a08f0f2fe3d94b1c3aa9a26d55cb48fc20af8d8977b08697a670b149bf9"
+    },
+    "reopen_incident": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "1954b757bf97f8a47e7b1a5a17e5f3b8d6195ead0eca28cef1aafea79cf6062a"
+    },
+    "query_incidents": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "c947048f493a3920b31a12e430c019b003de1fc14aa6352b28ece764ac3ee5c2"
+    },
+    "create_incident": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "77e08a2ed376fee5f368423e376dea268def720ccb66743d9be6497e658261b7"
+    },
+    "get_incident": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "ebabbd8e3f40ba6f36100a79a7eed6a50098fa40c6d471213177a25fa88cfde4"
+    },
+    "update_incident": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "7fc4542432f39bf2407854ca289a73cf16726649a396c9dc6e6479be6d9c7257"
+    },
+    "delete_incident": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "79d67dc4f5587d596a8c6d0e005c797e3985d3bb6c9ab5d7bb32cbfae29cb60a"
+    },
+    "list_information_values": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "128efb26a0006e9c67c41d0250fa8efa398c66175ac44f5f6cd356a634b00fc0"
+    },
+    "create_information_value": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "aa0804a78ab926695dedf1f7fd312f8cd899872324a537e74ba5d5629cd3337a"
+    },
+    "get_information_value": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "bf08fa50cf8d99f86c8179e4d1f04c8d781ec38fc2788229d13375a8a1949795"
+    },
+    "update_information_value": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "1245907e57c1159005ae170fe1173e821ad34eb04882142ae5eb94b3c2d68377"
+    },
+    "delete_information_value": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "4c3e35a34c70446217c7fb7653684875f6735e4db14ddb0a1d470647b0eea49d"
+    },
+    "list_information_value_protection_needs": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "ef261a7a1c84a00f654b46573b4076a438362c47c42ed92e99d98943f79204c4"
+    },
+    "list_information_value_review_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "b4154e6020d6ce8715e6f30029d7e142d6c92dc36d4ca6791a5068370724fdfb"
+    },
+    "list_information_value_tags": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "25ddc3220298f2c03b145aee7c0f7000cd788f611109b7e568152e367299915f"
+    },
+    "create_information_value_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "9d1341b752a2c27c8971e49a7f3dc8c777aa6b5fb2b645e8d924b3f289892ccc"
+    },
+    "get_information_value_tag": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "b7765be95eed3bcaac9538adad51f9fcc42d80200ced099a82e9e2e41dbe7e76"
+    },
+    "update_information_value_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "6a0bfe521a3d5b45d742b6f4589e64d85bc035a20b10b7ebf185235e98cfff83"
+    },
+    "delete_information_value_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "fc8d826136fb87075eb5b2ed17604ea6e78ea55543a6ec5adcb5c0c71e18bb00"
+    },
+    "list_information_value_text_modules": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "a305258a92fa9bea3e07018fe6989ba21502e232d8e6bdea069cb6e81b3610aa"
+    },
+    "create_information_value_text_module": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "6fa829b6c0d01d1f4f81e3b67423ba6a047b6359b9879476a3ce5f3991abf46f"
+    },
+    "get_information_value_text_module": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "39c9e7b4ac92a313cc5dbf0da76aad4aba367846133d0d2e7e5421a415e6d1e1"
+    },
+    "update_information_value_text_module": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "5bd0d613b6ebb27c100646b13446d4135f835743f0460be2929e8edf2b47d5e5"
+    },
+    "delete_information_value_text_module": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "8b0b74a9c8281d50d9310f8fb3c85675703c7d104643e00178dbce8a61dff08e"
+    },
+    "list_information_value_classifications": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "82e5565f25203698a38a85e1e3a0f250710bf8d1d5e52ca18add2c69fd316393"
+    },
+    "create_information_value_classification": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "48cfb45953d0e7b69c341c162a9f61a326c236cfcbfd4656a921a0754cce657f"
+    },
+    "get_information_value_classification": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "861e92b2db8dee90b76118b8f40ab4933611fd54c4848423d06b6aef3be58692"
+    },
+    "update_information_value_classification": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "06a9f6484ffcf96b70934a7c712de43c55f84a4d724aa369b5e59cae9935bd1c"
+    },
+    "delete_information_value_classification": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "19f98d03ea4c9bb5055408c741f659a7a2ba28534ab6fa1b442e6ac9d6925f04"
+    },
+    "get_client_info": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "dbdcc51c5e3fa48341f38265a9e09a94a7b3c4883d7b378b1334bc1058c9ed3d"
+    },
+    "list_measures": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "1b17cf590ea06665fd2911b3a2596a3583cc57c01623a2b9b6970a4ea727753d"
+    },
+    "create_measure": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "fac40439bbea7a3656745d1e8495d5a9466363f164fda1b0ff754481638d3e0b"
+    },
+    "get_measure": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "e194b04a12da3c8b1b347a418d94faaac9b828f53be9f906f5f2de3f49c334ce"
+    },
+    "update_measure": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "6f0d24d211895f872b00cfbe556afbfecf65c9861cb9ada56ebe7830260152c8"
+    },
+    "delete_measure": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "3bd84331515ca2b304b8f401554558674fc25ccb15e20ba820ff55d69a3dd65d"
+    },
+    "get_measure_by_maid": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "e3686fa12d45d25f08392108297bd2bb0bf1efe1d294bbad9365e7fb935986ce"
+    },
+    "list_measure_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "b72f29577a73e5f558d56b1588b1bf65692509f4ae507f2111f6c72b7f50f80b"
+    },
+    "list_measure_implementation_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "fbaa2c5b47cba4929a1110e2ef04303ff5662bd06650aca76b13cb9ff0e0dcaa"
+    },
+    "list_measure_review_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "a622ee0c2203a4054b43aaa30bad71fbda30f5396fc3204c433e516775e7e8d3"
+    },
+    "list_measure_threat_categories": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "b643cd44f6b24a6e2e318cfe6eb9521d676e1b82f3fde4314387e911940bc34b"
+    },
+    "list_measure_tags": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "f9f688bea867576d745e992e6cab3afbd53b50a582d120678ef93ad4d1f5851a"
+    },
+    "create_measure_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "f6c90b653a5a6c02e9f61102910cba51981cef9120c74b1fc80c1df635afa64e"
+    },
+    "get_measure_tag": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "9b8dd038d3972aa6bb50ef1ef262d1245ac625a6043c0ef42057ed130d9248e8"
+    },
+    "update_measure_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "b39c217bd3efb955b38a1ef0c15eb71ba022349e02eab7aa349230f961d24399"
+    },
+    "delete_measure_tag": {
+      "signature": "(path_params_json: 'str' = '{}', payload_json: 'str' = '', query_json: 'str' = '{}', execute: 'bool' = False, acknowledge_side_effects: 'bool' = False, confirm_delete: 'bool' = False) -> 'dict'",
+      "description_sha256": "e269dffc095c94c19f7d1899ef7d3d444dc216c064ee87baf555fb863f1c151c"
+    },
+    "query_risks": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "023dafa8bccb8c49d5f109a2ba7e28015dd3f2a22907f057b61b8f90b3238577"
+    },
+    "list_risk_types": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "ef94ee0652a42e42c1513c66c5ed10a816931ecbd352907dae5ab349bbb84f60"
+    },
+    "list_risk_statuses": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "5afda3789192e2de9c445c721e959c83b9587a0643490a05fe51b22e8d9bb5d9"
+    },
+    "get_risk": {
+      "signature": "(path_params_json: 'str' = '{}', query_json: 'str' = '{}') -> 'dict'",
+      "description_sha256": "2ff1e7309c761a6401e6af895006d48df4d1e72e3b8e6c8fec83234f6a847b22"
+    }
+  }
+}

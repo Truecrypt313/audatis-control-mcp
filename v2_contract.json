@@ -11,8 +11,7 @@
           "title": {
             "type": "string",
             "maxLength": 255,
-            "minLength": 1,
-            "example": "Office Laptop"
+            "minLength": 1
           },
           "category_id": {
             "type": "string",
@@ -49,132 +48,6 @@
             "items": {
               "type": "string"
             }
-          },
-          "protection_needs": {
-            "properties": {
-              "classification": {
-                "anyOf": [
-                  {
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "confidentiality_override": {
-                "anyOf": [
-                  {
-                    "description": "Ignored (stored as null) when lower than the value derived from linked information values.",
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "integrity_override": {
-                "anyOf": [
-                  {
-                    "description": "Ignored (stored as null) when lower than the derived value.",
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "availability_override": {
-                "anyOf": [
-                  {
-                    "description": "Ignored (stored as null) when lower than the derived value.",
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "criticality_override": {
-                "anyOf": [
-                  {
-                    "description": "Ignored (stored as null) when lower than the derived value.",
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              }
-            },
-            "type": "object",
-            "additionalProperties": false
-          },
-          "custom_fields": {
-            "description": "Custom field values, either as object {\"<field_id>\": \"<value>\"} or as array [{\"field_id\": \"...\", \"value\": \"...\"}] (designation and type are accepted and ignored, so a GET entry can be sent back). Unknown or inactive field IDs are rejected with 422.",
-            "oneOf": [
-              {
-                "type": "object",
-                "additionalProperties": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "required": [
-                    "field_id"
-                  ],
-                  "properties": {
-                    "field_id": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "value": {
-                      "anyOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    },
-                    "designation": {
-                      "anyOf": [
-                        {
-                          "description": "Ignored on write.",
-                          "type": "string"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    },
-                    "type": {
-                      "anyOf": [
-                        {
-                          "description": "Ignored on write.",
-                          "type": "string"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    }
-                  },
-                  "type": "object",
-                  "additionalProperties": false
-                }
-              }
-            ]
           }
         },
         "type": "object",
@@ -188,8 +61,7 @@
           "title": {
             "type": "string",
             "maxLength": 255,
-            "minLength": 1,
-            "example": "Office Laptop"
+            "minLength": 1
           },
           "description": {
             "anyOf": [
@@ -258,209 +130,6 @@
           },
           "is_shared": {
             "type": "boolean"
-          },
-          "ai": {
-            "properties": {
-              "is_used": {
-                "type": "boolean"
-              },
-              "risk_class": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "role": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "description": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              }
-            },
-            "type": "object",
-            "additionalProperties": false
-          },
-          "lifecycle": {
-            "properties": {
-              "start_at": {
-                "anyOf": [
-                  {
-                    "type": "string",
-                    "format": "date"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "end_at": {
-                "anyOf": [
-                  {
-                    "type": "string",
-                    "format": "date"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "notes": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              }
-            },
-            "type": "object",
-            "additionalProperties": false
-          },
-          "protection_needs": {
-            "properties": {
-              "classification": {
-                "anyOf": [
-                  {
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "confidentiality_override": {
-                "anyOf": [
-                  {
-                    "description": "Ignored (stored as null) when lower than the value derived from linked information values.",
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "integrity_override": {
-                "anyOf": [
-                  {
-                    "description": "Ignored (stored as null) when lower than the derived value.",
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "availability_override": {
-                "anyOf": [
-                  {
-                    "description": "Ignored (stored as null) when lower than the derived value.",
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "criticality_override": {
-                "anyOf": [
-                  {
-                    "description": "Ignored (stored as null) when lower than the derived value.",
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              }
-            },
-            "type": "object",
-            "additionalProperties": false
-          },
-          "custom_fields": {
-            "description": "Custom field values, either as object {\"<field_id>\": \"<value>\"} or as array [{\"field_id\": \"...\", \"value\": \"...\"}] (designation and type are accepted and ignored, so a GET entry can be sent back). Unknown or inactive field IDs are rejected with 422.",
-            "oneOf": [
-              {
-                "type": "object",
-                "additionalProperties": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "required": [
-                    "field_id"
-                  ],
-                  "properties": {
-                    "field_id": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "value": {
-                      "anyOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    },
-                    "designation": {
-                      "anyOf": [
-                        {
-                          "description": "Ignored on write.",
-                          "type": "string"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    },
-                    "type": {
-                      "anyOf": [
-                        {
-                          "description": "Ignored on write.",
-                          "type": "string"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    }
-                  },
-                  "type": "object",
-                  "additionalProperties": false
-                }
-              }
-            ]
           }
         },
         "type": "object",
@@ -476,12 +145,10 @@
           "subject": {
             "type": "string",
             "maxLength": 255,
-            "minLength": 1,
-            "example": "Review privacy policy"
+            "minLength": 1
           },
           "description": {
-            "type": "string",
-            "example": "Please review the privacy policy by Friday."
+            "type": "string"
           },
           "type": {
             "type": "string",
@@ -489,8 +156,7 @@
               "task",
               "milestone",
               "deadline"
-            ],
-            "example": "task"
+            ]
           },
           "status": {
             "type": "string",
@@ -503,8 +169,7 @@
               "not_relevant",
               "not_feasible",
               "planned"
-            ],
-            "example": "open"
+            ]
           },
           "priority": {
             "type": "string",
@@ -514,33 +179,17 @@
               "high",
               "normal",
               "low"
-            ],
-            "example": "normal"
+            ]
           },
           "progress": {
             "type": "integer",
             "maximum": 100,
-            "minimum": 0,
-            "example": 0
+            "minimum": 0
           },
           "assigned_to_user_id": {
             "anyOf": [
               {
-                "description": "User ID of the assignee",
-                "type": "integer",
-                "example": 5
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "planned_effort": {
-            "anyOf": [
-              {
-                "description": "Planned effort in hours",
-                "type": "number",
-                "example": 8
+                "type": "integer"
               },
               {
                 "type": "null"
@@ -551,8 +200,7 @@
             "anyOf": [
               {
                 "type": "string",
-                "format": "date",
-                "example": "2026-03-01"
+                "format": "date"
               },
               {
                 "type": "null"
@@ -563,74 +211,12 @@
             "anyOf": [
               {
                 "type": "string",
-                "format": "date",
-                "example": "2026-04-01"
+                "format": "date"
               },
               {
                 "type": "null"
               }
             ]
-          },
-          "actual_start_date": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date",
-                "example": null
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "actual_end_date": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date",
-                "example": null
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "has_reminder": {
-            "type": "boolean",
-            "example": false
-          },
-          "reminder_at": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date-time",
-                "example": null
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "is_recurring": {
-            "type": "boolean",
-            "example": false
-          },
-          "recurrence_days": {
-            "anyOf": [
-              {
-                "description": "Recurrence cycle in days",
-                "type": "integer",
-                "example": null
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "is_consultant_only": {
-            "description": "Consultant-only task; only settable by permission level 4",
-            "type": "boolean",
-            "example": false
           }
         },
         "type": "object",
@@ -644,12 +230,10 @@
           "subject": {
             "type": "string",
             "maxLength": 255,
-            "minLength": 1,
-            "example": "Review privacy policy"
+            "minLength": 1
           },
           "description": {
-            "type": "string",
-            "example": "Please review the privacy policy by Friday."
+            "type": "string"
           },
           "type": {
             "type": "string",
@@ -657,8 +241,7 @@
               "task",
               "milestone",
               "deadline"
-            ],
-            "example": "task"
+            ]
           },
           "status": {
             "type": "string",
@@ -671,8 +254,7 @@
               "not_relevant",
               "not_feasible",
               "planned"
-            ],
-            "example": "open"
+            ]
           },
           "priority": {
             "type": "string",
@@ -682,33 +264,17 @@
               "high",
               "normal",
               "low"
-            ],
-            "example": "normal"
+            ]
           },
           "progress": {
             "type": "integer",
             "maximum": 100,
-            "minimum": 0,
-            "example": 0
+            "minimum": 0
           },
           "assigned_to_user_id": {
             "anyOf": [
               {
-                "description": "User ID of the assignee",
-                "type": "integer",
-                "example": 5
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "planned_effort": {
-            "anyOf": [
-              {
-                "description": "Planned effort in hours",
-                "type": "number",
-                "example": 8
+                "type": "integer"
               },
               {
                 "type": "null"
@@ -719,8 +285,7 @@
             "anyOf": [
               {
                 "type": "string",
-                "format": "date",
-                "example": "2026-03-01"
+                "format": "date"
               },
               {
                 "type": "null"
@@ -731,74 +296,12 @@
             "anyOf": [
               {
                 "type": "string",
-                "format": "date",
-                "example": "2026-04-01"
+                "format": "date"
               },
               {
                 "type": "null"
               }
             ]
-          },
-          "actual_start_date": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date",
-                "example": null
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "actual_end_date": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date",
-                "example": null
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "has_reminder": {
-            "type": "boolean",
-            "example": false
-          },
-          "reminder_at": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date-time",
-                "example": null
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "is_recurring": {
-            "type": "boolean",
-            "example": false
-          },
-          "recurrence_days": {
-            "anyOf": [
-              {
-                "description": "Recurrence cycle in days",
-                "type": "integer",
-                "example": null
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "is_consultant_only": {
-            "description": "Consultant-only task; only changeable by permission level 4",
-            "type": "boolean",
-            "example": false
           }
         },
         "type": "object",
@@ -814,8 +317,7 @@
           "title": {
             "type": "string",
             "maxLength": 255,
-            "minLength": 1,
-            "example": "Customer Database"
+            "minLength": 1
           },
           "description": {
             "anyOf": [
@@ -904,8 +406,7 @@
           "title": {
             "type": "string",
             "maxLength": 255,
-            "minLength": 1,
-            "example": "Customer Database"
+            "minLength": 1
           },
           "description": {
             "anyOf": [
@@ -932,9 +433,6 @@
           },
           "has_art9_data": {
             "type": "boolean"
-          },
-          "protection_needs": {
-            "$ref": "#/$defs/InformationValueProtectionNeedsInput"
           },
           "classification_id": {
             "anyOf": [
@@ -996,8 +494,7 @@
           "title": {
             "type": "string",
             "maxLength": 255,
-            "minLength": 1,
-            "example": "Order Processing"
+            "minLength": 1
           },
           "description": {
             "anyOf": [
@@ -1185,8 +682,7 @@
           "title": {
             "type": "string",
             "maxLength": 255,
-            "minLength": 1,
-            "example": "Order Processing"
+            "minLength": 1
           },
           "description": {
             "anyOf": [
@@ -1271,52 +767,6 @@
               "inactive",
               "planned"
             ]
-          },
-          "process": {
-            "properties": {
-              "goal": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "input": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "output": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "steps": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              }
-            },
-            "type": "object",
-            "additionalProperties": false
           },
           "resources": {
             "anyOf": [
