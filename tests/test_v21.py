@@ -13,13 +13,13 @@ import v21_relationships as rel
 import v21_hierarchy as hier
 from v21_register import V21_TOOLS, register_v21_tools
 
-A = '8bf9b3bd-5065-4707-9b6c-4568e3460e2e'
-B = 'e4fcf3d0-e04a-45fc-838d-55b9cb0582b9'
-C = 'e4fcf3d0-e04a-45fc-838d-55b9cb0582b8'
-I = '7bce283d-4f8d-4c63-bac9-c33552b83d95'
-P = 'e111363d-19c1-4f8a-b816-72c4eb95e8a0'
-M = '374ea296-b201-49c8-90ba-e77037be8e90'
-R = '01a1ab5d-4606-73a2-90f7-5b7fe6185776'
+A = '00000000-0000-0000-0000-0000000003ef'
+B = '00000000-0000-0000-0000-0000000003f4'
+C = '00000000-0000-0000-0000-0000000003f3'
+I = '00000000-0000-0000-0000-0000000003ee'
+P = '00000000-0000-0000-0000-0000000003f2'
+M = '00000000-0000-0000-0000-0000000003eb'
+R = '00000000-0000-0000-0000-0000000003ea'
 
 
 def sample():
@@ -377,7 +377,8 @@ def test_legacy_31_tools_plus_v21_are_36(monkeypatch):
     if len(server.mcp.names) == 31:
         register_v21_tools(server.mcp)
 
-    assert len(server.mcp.names) in (36, 47)
+    from management_tools import MANAGEMENT_TOOLS
+    assert len(server.mcp.names) == 47 + len(MANAGEMENT_TOOLS) + 1
     assert {fn.__name__ for fn in V21_TOOLS}.issubset(
         set(server.mcp.names)
     )

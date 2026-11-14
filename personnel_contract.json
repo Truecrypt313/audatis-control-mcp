@@ -121,7 +121,6 @@
     }
   },
   "bulk_organisations": {
-    "description": "Adds and removes organisation assignments of several persons. At least one of add/remove must contain an ID; an ID in both lists is removed.",
     "required": [
       "person_ids"
     ],

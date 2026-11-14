@@ -285,6 +285,7 @@ def test_test_stub_mcp_full_additive_registration_has_47_tools(monkeypatch):
     if len(original.mcp.names)==31:register_v21_tools(original.mcp)
     if len(original.mcp.names) == 36:
         register_personnel_tools(original.mcp)
-    assert len(original.mcp.names)==47
-    assert len(set(original.mcp.names))==47
+    from management_tools import MANAGEMENT_TOOLS
+    assert len(original.mcp.names) == 47 + len(MANAGEMENT_TOOLS) + 1
+    assert len(set(original.mcp.names)) == len(original.mcp.names)
     monkeypatch.delitem(sys.modules,'server',raising=False)

@@ -1,6 +1,7 @@
-"""Minimal audatis MANAGER MCP server, read-only, tenant-pinned.
+"""Additive audatis MANAGER MCP server, tenant-pinned.
 
-Based on audatis API OpenAPI v1.3.0 and official MCP Python SDK v2.
+Existing contracts: API 1.3.0; additive management package: official API 1.3.1.
+Uses the official MCP Python SDK v2. New writes default to local preview.
 """
 from __future__ import annotations
 
@@ -8,18 +9,25 @@ from mcp.server import MCPServer
 
 from audatis_api import AudatisAPI, summarize_list
 
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+from tool_modules import ModuleRegistry
+
+load_dotenv(Path(__file__).with_name(".env"), override=False)
 mcp = MCPServer("audatisControl")
+registration = ModuleRegistry(mcp, os.environ.get("AUDATIS_MCP_MODULES"))
 
 # nicht mehr notwendig. task:direct fürt befehl create_task() aus task_direct.py aus, der die Aufgabe sofort anlegt.
 #from task_approval import prepare_task 
 #mcp.tool()(prepare_task)
 
 from task_direct import create_task
-mcp.tool()(create_task)
+registration.tool()(create_task)
 
 from task_management import get_task, update_task
-mcp.tool()(get_task)
-mcp.tool()(update_task)
+registration.tool()(get_task)
+registration.tool()(update_task)
 
 from asset_management import (
     list_asset_categories,
@@ -27,23 +35,23 @@ from asset_management import (
     get_asset,
     create_asset,
 )
-mcp.tool()(list_asset_categories)
-mcp.tool()(list_asset_types)
-mcp.tool()(get_asset)
-mcp.tool()(create_asset)
+registration.tool()(list_asset_categories)
+registration.tool()(list_asset_types)
+registration.tool()(get_asset)
+registration.tool()(create_asset)
 
 from asset_owner_management import list_users, update_asset
-mcp.tool()(list_users)
-mcp.tool()(update_asset)
+registration.tool()(list_users)
+registration.tool()(update_asset)
 
 from asset_protection import (
     list_asset_protection_levels,
     set_asset_protection_needs,
 )
-mcp.tool()(list_asset_protection_levels)
-mcp.tool()(set_asset_protection_needs)
+registration.tool()(list_asset_protection_levels)
+registration.tool()(set_asset_protection_needs)
 
-@mcp.tool()
+@registration.tool()
 def list_assets(page: int = 1, per_page: int = 10) -> dict:
     """Liste Assets des konfigurierten audatis-Testmandanten, inkl. Zahl verknüpfter Risiken."""
     result = AudatisAPI.from_env().tenant_get("assets", page=page, per_page=per_page)
@@ -54,7 +62,7 @@ def list_assets(page: int = 1, per_page: int = 10) -> dict:
     return summarized
 
 
-@mcp.tool()
+@registration.tool()
 def list_risks(page: int = 1, per_page: int = 10, status: str = "") -> dict:
     """Liste Risiken des Testmandanten; Status-Codes laut /risks/statuses."""
     raw = AudatisAPI.from_env().tenant_get(
@@ -66,7 +74,7 @@ def list_risks(page: int = 1, per_page: int = 10, status: str = "") -> dict:
     ))
 
 
-@mcp.tool()
+@registration.tool()
 def list_tasks(page: int = 1, per_page: int = 10, status: str = "") -> dict:
     """Liste aktive Hauptaufgaben des Testmandanten mit Status und Fälligkeit."""
     raw = AudatisAPI.from_env().tenant_get(
@@ -77,7 +85,7 @@ def list_tasks(page: int = 1, per_page: int = 10, status: str = "") -> dict:
     ))
 
 
-@mcp.tool()
+@registration.tool()
 def list_incidents(page: int = 1, per_page: int = 10, status: str = "") -> dict:
     """Liste Sicherheits-/Datenschutzvorfälle mit Status, Schwere und Zeitstempel."""
     raw = AudatisAPI.from_env().tenant_get(
@@ -90,7 +98,7 @@ def list_incidents(page: int = 1, per_page: int = 10, status: str = "") -> dict:
 
 
 
-@mcp.tool()
+@registration.tool()
 def preview_create_task(
     subject: str,
     description: str = "",
@@ -132,13 +140,17 @@ def preview_create_task(
 
 from mcp_naming import named_mcp
 from v2_register import register_v2_tools
-register_v2_tools(named_mcp(mcp))
+register_v2_tools(named_mcp(registration))
 
 from v21_register import register_v21_tools
-register_v21_tools(named_mcp(mcp))
+register_v21_tools(named_mcp(registration))
 
 from personnel_register import register_personnel_tools
-register_personnel_tools(mcp)
+register_personnel_tools(registration)
+
+from management_register import register_management_tools
+register_management_tools(registration)
+registration.finish()
 
 if __name__ == "__main__":
     # stdin/stdout for MCP only. Avoid print() and verbose logging to stdout.

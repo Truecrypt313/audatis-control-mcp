@@ -1,0 +1,382 @@
+{
+  "legacy": {
+    "create_task": {
+      "signature": "(subject: 'str', description: 'str' = '', priority: 'str' = 'normal', due_date: 'str' = '') -> 'dict'",
+      "description": "Erstellt eine audatis-Aufgabe SOFORT, ohne weitere Freigabe. Nur für explizit gewünschte Aufgaben verwenden.\n\n    Priorität: none/low/normal/high/critical. due_date: YYYY-MM-DD (optional).\n    "
+    },
+    "get_task": {
+      "signature": "(task_id: 'str') -> 'dict'",
+      "description": "Liest eine einzelne audatis-Aufgabe per UUID. Ändert keine Daten.\n\n    Nutzt den lokal gespeicherten Token, der bereits für create_task verwendet wird.\n    "
+    },
+    "update_task": {
+      "signature": "(task_id: 'str', subject: 'str' = '', description: 'str' = '', priority: 'str' = '', status: 'str' = '', due_date: 'str' = '', clear_due_date: 'bool' = False, assigned_to_user_id: 'int' = -1) -> 'dict'",
+      "description": "Ändert eine audatis-Aufgabe SOFORT (ohne separate Freigabe).\n\n    Nur angegebene Felder werden geändert:\n      - subject/description: leerer String bedeutet *nicht ändern*;\n      - priority: none/low/normal/high/critical;\n      - status: open/in_progress/waiting/completed/cancelled/not_relevant/\n        not_feasible/planned;\n      - due_date: YYYY-MM-DD, oder clear_due_date=True um Datum zu entfernen;\n      - assigned_to_user_id: -1=unverändert, 0=Zuweisung entfernen,\n        positive Zahl=Benutzer-ID setzen.\n\n    Wichtig: Die API verlangt subject auch beim PUT. Deshalb wird der aktuelle\n    Betreff zuerst per GET geladen und bei Teiländerungen beibehalten.\n    Kein DELETE, kein automatisches Wiederholen bei Fehlern.\n    "
+    },
+    "list_asset_categories": {
+      "signature": "() -> 'dict'",
+      "description": "Liest aktive Asset-Kategorien samt IDs für die spätere Asset-Erstellung."
+    },
+    "list_asset_types": {
+      "signature": "(category_id: 'str') -> 'dict'",
+      "description": "Liest aktive Asset-Typen der angegebenen Kategorie (UUID)."
+    },
+    "get_asset": {
+      "signature": "(asset_id: 'str') -> 'dict'",
+      "description": "Liest ein einzelnes Asset, einschließlich Schutzbedarf und Verknüpfungen; ohne Änderung."
+    },
+    "create_asset": {
+      "signature": "(title: 'str', category_id: 'str', type_id: 'str' = '') -> 'dict'",
+      "description": "Erstellt SOFORT ein Asset im Testmandanten ohne manuelle Freigabe.\n\n    Vorher list_asset_categories aufrufen, um eine gültige category_id zu wählen.\n    Für den optionalen type_id-Wert list_asset_types(category_id) verwenden.\n    OpenAPI v1.3.0: POST AssetCreateRequest erlaubt title, category_id, type_id,\n    aber KEIN description-Feld. Keine automatischen Wiederholungen.\n    "
+    },
+    "list_users": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 100) -> 'dict'",
+      "description": "Listet Benutzer des Testmandanten (ID und Name). Nur lesender API-Zugriff.\n\n    Für diesen Endpunkt benötigt der Token-Benutzer 'Benutzerverwaltung' (Lesen).\n    "
+    },
+    "update_asset": {
+      "signature": "(asset_id: 'str', asset_owner_user_id: 'int' = -1, title: 'str' = '', description: 'str' = '', clear_description: 'bool' = False) -> 'dict'",
+      "description": "Ändert ein Asset SOFORT im Testmandanten (ohne separate Freigabe).\n\n    asset_owner_user_id: -1=unverändert, 0=Owner entfernen, >0=Benutzer-ID setzen.\n    title/description: leere Zeichenfolge = unverändert.\n    clear_description=True entfernt die Beschreibung; nicht zusammen mit description verwenden.\n\n    Die audatis-API verlangt beim PUT das Feld 'title', auch bei einer Owner-Änderung.\n    Deshalb wird vor dem Update das Asset ausgelesen und der bisherige Titel beibehalten.\n    "
+    },
+    "list_asset_protection_levels": {
+      "signature": "() -> 'dict[str, Any]'",
+      "description": "Liest die aktiven Schutzbedarfsstufen (numerischer level und Name).\n\n    Diese Stufen müssen vor einer erstmaligen Schutzbedarf-Zuweisung abgefragt\n    werden; die Zahlen werden NICHT durch die KI geraten.\n    "
+    },
+    "set_asset_protection_needs": {
+      "signature": "(asset_id: 'str', confidentiality: 'int' = -1, integrity: 'int' = -1, availability: 'int' = -1) -> 'dict[str, Any]'",
+      "description": "Setzt C/I/A-Overrides eines Assets SOFORT in audatisManager.\n\n    Werte: numerischer `level` aus list_asset_protection_levels().\n    -1 bedeutet unverändert; -2 löscht einen vorhandenen manuellen Override.\n    Nur ausdrücklich genannte Dimensionen werden angepasst.\n    Die API kann niedrigere Overrides ignorieren, wenn eine höhere Stufe\n    aus verknüpften Informationswerten abgeleitet wurde.\n    "
+    },
+    "list_assets": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10) -> 'dict'",
+      "description": "Liste Assets des konfigurierten audatis-Testmandanten, inkl. Zahl verknüpfter Risiken."
+    },
+    "list_risks": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10, status: 'str' = '') -> 'dict'",
+      "description": "Liste Risiken des Testmandanten; Status-Codes laut /risks/statuses."
+    },
+    "list_tasks": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10, status: 'str' = '') -> 'dict'",
+      "description": "Liste aktive Hauptaufgaben des Testmandanten mit Status und Fälligkeit."
+    },
+    "list_incidents": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10, status: 'str' = '') -> 'dict'",
+      "description": "Liste Sicherheits-/Datenschutzvorfälle mit Status, Schwere und Zeitstempel."
+    },
+    "preview_create_task": {
+      "signature": "(subject: 'str', description: 'str' = '', priority: 'str' = 'normal', due_date: 'str' = '') -> 'dict'",
+      "description": "Bereitet eine neue audatis-Aufgabe vor, ohne sie anzulegen."
+    },
+    "v2_capabilities": {
+      "signature": "() -> 'dict'",
+      "description": "Zeigt die geprüften V2-Ressourcen, Felder und API-Grenzen (keine Änderungen)."
+    },
+    "v2_list_records": {
+      "signature": "(resource: 'str', page: 'int' = 1, per_page: 'int' = 30) -> 'dict'",
+      "description": "Listet Assets, Aufgaben, Informationswerte, Prozesse, Maßnahmen, Risiken, Incidents oder Berichte."
+    },
+    "v2_get_record": {
+      "signature": "(resource: 'str', record_id: 'str') -> 'dict'",
+      "description": "Liest einen vollständigen Datensatz per UUID; Risiken und Incidents bleiben schreibgeschützt."
+    },
+    "v2_lookup": {
+      "signature": "(name: 'str') -> 'dict'",
+      "description": "Liest erlaubte Status-, Schutzbedarfs- und Klassifizierungs-Nachschlagewerke."
+    },
+    "v2_create_record": {
+      "signature": "(resource: 'str', payload_json: 'str') -> 'dict'",
+      "description": "Erstellt SOFORT einen validierten Datensatz: Assets, Tasks, Informationswerte, Prozesse, Maßnahmen.\n\n    payload_json ist ein JSON-Objekt mit Feldern aus v2_capabilities.\n    Keine separate Freigabe, keine Retries. Incidents und Risiken sind ausgeschlossen.\n    "
+    },
+    "v2_update_record": {
+      "signature": "(resource: 'str', record_id: 'str', changes_json: 'str') -> 'dict'",
+      "description": "Aktualisiert SOFORT freigegebene Teilfelder eines Datensatzes (kein DELETE).\n\n    PUT-required title/subject wird vorher per GET geladen. Mit null lassen sich nur\n    laut OpenAPI nullable Felder explizit leeren. Verschachtelte Schutzbedarfs-Updates\n    bleiben für die vorhandenen Spezialtools reserviert.\n    "
+    },
+    "v2_list_incident_links": {
+      "signature": "(incident_id: 'str', kind: 'str') -> 'dict'",
+      "description": "Liest Incident-Verknüpfungen zu assets, measures, information-values oder business-processes."
+    },
+    "v2_link_incident": {
+      "signature": "(incident_id: 'str', kind: 'str', target_id: 'str') -> 'dict'",
+      "description": "Verknüpft SOFORT ein Incident mit einem Asset, einer Maßnahme, Information oder einem Prozess.\n\n    API-seitig idempotent: 201 neu, 200 bereits verknüpft. Kein DELETE/Unlink.\n    "
+    },
+    "v2_audit_log": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 30, entity_type: 'str' = '', action: 'str' = '') -> 'dict'",
+      "description": "Liest das API-Audit-Log (Administrator-Leserecht erforderlich); nur Feldnamen, keine Vorwerte."
+    },
+    "v2_bulk_create_records": {
+      "signature": "(resource: 'str', items_json: 'str', execute: 'bool' = False, check_existing: 'bool' = True) -> 'dict'",
+      "description": "Erstellt in einem Durchlauf maximal 10 Assets, Aufgaben, Informationen, Prozesse oder Maßnahmen.\n\n    Alle Einträge werden VOR einem Schreibzugriff validiert. Bei execute=False nur\n    Planvorschau; execute=True führt ohne Einzelbestätigung aus. Default prüft\n    Dubletten anhand von Titel/Betreff über die vollständig paginierte API-Liste.\n    "
+    },
+    "v2_bulk_update_records": {
+      "signature": "(resource: 'str', items_json: 'str', execute: 'bool' = False) -> 'dict'",
+      "description": "Bulk-Update mit GET-Vorabfrage, validierten Änderungen und Teilfehler-Bericht.\n\n    JSON-Array: [{\"record_id\":\"UUID\", \"changes\":{\"status\":\"in_progress\"}}].\n    Bei execute=False nur lokale Validierung; execute=True prüft ALLE Datensätze\n    vor der ersten Änderung. Keine Transaktion / automatische Rücknahme.\n    "
+    },
+    "v2_inventory_snapshot": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description": "Erfasst ein begrenztes, datensparsames Inventar-Snapshot ohne Schreibzugriffe.\n\n    Counts are lower bounds when complete=False. No claim of exhaustive discovery.\n    "
+    },
+    "v2_asset_graph": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description": "Ermittelt bestehende Asset-Hierarchien und bereits gespeicherte Verknüpfungen.\n\n    'linked_assets' are relationships, not automatically an inferred network dependency.\n    No new relation is written; unsupported relationship-create endpoints are not invented.\n    "
+    },
+    "v2_documentation_gaps": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description": "Markiert potenzielle Dokumentationslücken in Assets, Informationen, Prozessen, Maßnahmen.\n\n    Diese Hinweise sind KEINE Compliance-Feststellung und KEINE Risikoeinstufung.\n    "
+    },
+    "v2_duplicate_tasks": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description": "Sucht gleiche normalisierte Aufgabenbetreffe im paginierten Bestand (nur Lesen)."
+    },
+    "v21_relationship_capabilities": {
+      "signature": "() -> 'dict'",
+      "description": "Zeigt dokumentierte Beziehungen und Grenzen: frei verknüpfbare Objekte werden nicht behauptet."
+    },
+    "v21_relationship_graph": {
+      "signature": "(max_pages: 'int' = 5, max_edges: 'int' = 3000) -> 'dict'",
+      "description": "Liest den ressortübergreifenden Beziehungsgraphen ohne Datenänderungen."
+    },
+    "v21_related_records": {
+      "signature": "(resource: 'str', record_id: 'str', max_depth: 'int' = 2, max_pages: 'int' = 5) -> 'dict'",
+      "description": "Ermittelt in bis zu drei Schritten verbundene Objekte (kein kausaler Impact-Score)."
+    },
+    "v21_relationship_audit": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description": "Heuristiken: fehlende Owner, ungeklärte Referenzen und ausstehende Reviews."
+    },
+    "v21_bulk_set_parent": {
+      "signature": "(resource: 'str', items_json: 'str', execute: 'bool' = False, max_pages: 'int' = 5) -> 'dict'",
+      "description": "Setzt fuer bis zu 10 bisher elternlose Assets/Prozesse einen Parent; Dry-run Standard.\n\n    JSON: [{\"record_id\":\"...\", \"parent_id\":\"...\"}]. Auch die Vorschau\n    liest den Bestand, schreibt jedoch nichts. Alle Kind-/Parent-IDs müssen\n    im vollständig geladenen Mandanten-Inventar existieren. Asset-Parent muss\n    als Gruppe markiert sein. Bestehendes Parent wird niemals ersetzt.\n    "
+    },
+    "personnel_capabilities": {
+      "signature": "() -> 'dict'",
+      "description": "Beschreibt verfügbare Personal- und Organisationsfunktionen samt API-Grenzen."
+    },
+    "list_organisations": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 50) -> 'dict'",
+      "description": "Liest bestehende Organisationseinheiten mit parent_id; legt keine Organisation an."
+    },
+    "get_organisation": {
+      "signature": "(organisation_id: 'int') -> 'dict'",
+      "description": "Liest eine vorhandene Organisation anhand der numerischen ID."
+    },
+    "list_personnel": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 50, archived: 'str' = 'false', q: 'str' = '', organisation_id: 'int' = 0) -> 'dict'",
+      "description": "Liest Mitarbeiter; optional Textsuche, Archiv- und Organisationsfilter."
+    },
+    "get_personnel": {
+      "signature": "(person_id: 'int') -> 'dict'",
+      "description": "Liest einen Mitarbeiterdatensatz (Personal ist nicht gleich Systembenutzer)."
+    },
+    "create_personnel": {
+      "signature": "(payload_json: 'str', execute: 'bool' = False, check_existing: 'bool' = True) -> 'dict'",
+      "description": "Erstellt Mitarbeiter (kein Systemlogin!) nach Vorschau und Duplikatprüfung.\n\n    payload_json: z.B. {\"last_name\":\"Test\",\"first_name\":\"Max\",\"email\":\"max@example.org\",\n                      \"organisation_ids\":[12],\"language\":\"de\"}.\n    execute=false validiert nur lokal. execute=true prüft bestehende E-Mail und Organisations-IDs.\n    Bei Fehler KEINEN automatischen Wiederholungsaufruf starten.\n    "
+    },
+    "update_personnel": {
+      "signature": "(person_id: 'int', changes_json: 'str', execute: 'bool' = False) -> 'dict'",
+      "description": "Ändert gezielt Personenstammdaten; Organisationen nur mit assign_personnel_organisations.\n\n    Vor PUT werden die drei laut Schema erforderlichen Namens-/E-Mail-Felder per GET\n    geladen. Vorhandene Organisations-, Tag- und Modulzuweisungen bleiben unberührt.\n    Eine E-Mail-Änderung kann das Login gemäß audatis-API-Regel ändern.\n    "
+    },
+    "assign_personnel_organisations": {
+      "signature": "(person_ids_json: 'str', add_json: 'str' = '[]', remove_json: 'str' = '[]', execute: 'bool' = False) -> 'dict'",
+      "description": "Bulk-Zuweisung bestehender Mitarbeiter zu bestehenden Organisationen (max. 25 pro Aufruf).\n\n    Beispiel person_ids_json='[12,13]', add_json='[3]', remove_json='[]'.\n    Vor dem Schreiben: Existenz, Mandant und Archivstatus ALLER Zielpersonen prüfen.\n    Die API kann Teilerfolge liefern, es gibt keinen automatischen Rollback oder Retry.\n    "
+    },
+    "list_personnel_tags": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 50) -> 'dict'",
+      "description": "Listet vorhandene Mitarbeiter-Tags und deren Sichtbarkeit."
+    },
+    "get_user": {
+      "signature": "(user_id: 'int') -> 'dict'",
+      "description": "Liest einen bestehenden administrativen Benutzer (nur ID und Name)."
+    },
+    "get_personnel_assignments": {
+      "signature": "(person_id: 'int') -> 'dict'",
+      "description": "Liest bestehende E-Learning-/Zertifikats-/Dokumentationszuweisungen, ohne sie zu ändern."
+    }
+  },
+  "modern": {
+    "create_task": {
+      "signature": "(subject: 'str', description: 'str' = '', priority: 'str' = 'normal', due_date: 'str' = '') -> 'dict'",
+      "description": "Erstellt eine audatis-Aufgabe SOFORT, ohne weitere Freigabe. Nur für explizit gewünschte Aufgaben verwenden.\n\n    Priorität: none/low/normal/high/critical. due_date: YYYY-MM-DD (optional).\n    "
+    },
+    "get_task": {
+      "signature": "(task_id: 'str') -> 'dict'",
+      "description": "Liest eine einzelne audatis-Aufgabe per UUID. Ändert keine Daten.\n\n    Nutzt den lokal gespeicherten Token, der bereits für create_task verwendet wird.\n    "
+    },
+    "update_task": {
+      "signature": "(task_id: 'str', subject: 'str' = '', description: 'str' = '', priority: 'str' = '', status: 'str' = '', due_date: 'str' = '', clear_due_date: 'bool' = False, assigned_to_user_id: 'int' = -1) -> 'dict'",
+      "description": "Ändert eine audatis-Aufgabe SOFORT (ohne separate Freigabe).\n\n    Nur angegebene Felder werden geändert:\n      - subject/description: leerer String bedeutet *nicht ändern*;\n      - priority: none/low/normal/high/critical;\n      - status: open/in_progress/waiting/completed/cancelled/not_relevant/\n        not_feasible/planned;\n      - due_date: YYYY-MM-DD, oder clear_due_date=True um Datum zu entfernen;\n      - assigned_to_user_id: -1=unverändert, 0=Zuweisung entfernen,\n        positive Zahl=Benutzer-ID setzen.\n\n    Wichtig: Die API verlangt subject auch beim PUT. Deshalb wird der aktuelle\n    Betreff zuerst per GET geladen und bei Teiländerungen beibehalten.\n    Kein DELETE, kein automatisches Wiederholen bei Fehlern.\n    "
+    },
+    "list_asset_categories": {
+      "signature": "() -> 'dict'",
+      "description": "Liest aktive Asset-Kategorien samt IDs für die spätere Asset-Erstellung."
+    },
+    "list_asset_types": {
+      "signature": "(category_id: 'str') -> 'dict'",
+      "description": "Liest aktive Asset-Typen der angegebenen Kategorie (UUID)."
+    },
+    "get_asset": {
+      "signature": "(asset_id: 'str') -> 'dict'",
+      "description": "Liest ein einzelnes Asset, einschließlich Schutzbedarf und Verknüpfungen; ohne Änderung."
+    },
+    "create_asset": {
+      "signature": "(title: 'str', category_id: 'str', type_id: 'str' = '') -> 'dict'",
+      "description": "Erstellt SOFORT ein Asset im Testmandanten ohne manuelle Freigabe.\n\n    Vorher list_asset_categories aufrufen, um eine gültige category_id zu wählen.\n    Für den optionalen type_id-Wert list_asset_types(category_id) verwenden.\n    OpenAPI v1.3.0: POST AssetCreateRequest erlaubt title, category_id, type_id,\n    aber KEIN description-Feld. Keine automatischen Wiederholungen.\n    "
+    },
+    "list_users": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 100) -> 'dict'",
+      "description": "Listet Benutzer des Testmandanten (ID und Name). Nur lesender API-Zugriff.\n\n    Für diesen Endpunkt benötigt der Token-Benutzer 'Benutzerverwaltung' (Lesen).\n    "
+    },
+    "update_asset": {
+      "signature": "(asset_id: 'str', asset_owner_user_id: 'int' = -1, title: 'str' = '', description: 'str' = '', clear_description: 'bool' = False) -> 'dict'",
+      "description": "Ändert ein Asset SOFORT im Testmandanten (ohne separate Freigabe).\n\n    asset_owner_user_id: -1=unverändert, 0=Owner entfernen, >0=Benutzer-ID setzen.\n    title/description: leere Zeichenfolge = unverändert.\n    clear_description=True entfernt die Beschreibung; nicht zusammen mit description verwenden.\n\n    Die audatis-API verlangt beim PUT das Feld 'title', auch bei einer Owner-Änderung.\n    Deshalb wird vor dem Update das Asset ausgelesen und der bisherige Titel beibehalten.\n    "
+    },
+    "list_asset_protection_levels": {
+      "signature": "() -> 'dict[str, Any]'",
+      "description": "Liest die aktiven Schutzbedarfsstufen (numerischer level und Name).\n\n    Diese Stufen müssen vor einer erstmaligen Schutzbedarf-Zuweisung abgefragt\n    werden; die Zahlen werden NICHT durch die KI geraten.\n    "
+    },
+    "set_asset_protection_needs": {
+      "signature": "(asset_id: 'str', confidentiality: 'int' = -1, integrity: 'int' = -1, availability: 'int' = -1) -> 'dict[str, Any]'",
+      "description": "Setzt C/I/A-Overrides eines Assets SOFORT in audatisManager.\n\n    Werte: numerischer `level` aus list_asset_protection_levels().\n    -1 bedeutet unverändert; -2 löscht einen vorhandenen manuellen Override.\n    Nur ausdrücklich genannte Dimensionen werden angepasst.\n    Die API kann niedrigere Overrides ignorieren, wenn eine höhere Stufe\n    aus verknüpften Informationswerten abgeleitet wurde.\n    "
+    },
+    "list_assets": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10) -> 'dict'",
+      "description": "Liste Assets des konfigurierten audatis-Testmandanten, inkl. Zahl verknüpfter Risiken."
+    },
+    "list_risks": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10, status: 'str' = '') -> 'dict'",
+      "description": "Liste Risiken des Testmandanten; Status-Codes laut /risks/statuses."
+    },
+    "list_tasks": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10, status: 'str' = '') -> 'dict'",
+      "description": "Liste aktive Hauptaufgaben des Testmandanten mit Status und Fälligkeit."
+    },
+    "list_incidents": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 10, status: 'str' = '') -> 'dict'",
+      "description": "Liste Sicherheits-/Datenschutzvorfälle mit Status, Schwere und Zeitstempel."
+    },
+    "preview_create_task": {
+      "signature": "(subject: 'str', description: 'str' = '', priority: 'str' = 'normal', due_date: 'str' = '') -> 'dict'",
+      "description": "Bereitet eine neue audatis-Aufgabe vor, ohne sie anzulegen."
+    },
+    "manager_capabilities": {
+      "signature": "() -> 'dict'",
+      "description": "Zeigt die geprüften V2-Ressourcen, Felder und API-Grenzen (keine Änderungen)."
+    },
+    "list_records": {
+      "signature": "(resource: 'str', page: 'int' = 1, per_page: 'int' = 30) -> 'dict'",
+      "description": "Listet Assets, Aufgaben, Informationswerte, Prozesse, Maßnahmen, Risiken, Incidents oder Berichte."
+    },
+    "get_record": {
+      "signature": "(resource: 'str', record_id: 'str') -> 'dict'",
+      "description": "Liest einen vollständigen Datensatz per UUID; Risiken und Incidents bleiben schreibgeschützt."
+    },
+    "lookup_values": {
+      "signature": "(name: 'str') -> 'dict'",
+      "description": "Liest erlaubte Status-, Schutzbedarfs- und Klassifizierungs-Nachschlagewerke."
+    },
+    "create_record": {
+      "signature": "(resource: 'str', payload_json: 'str') -> 'dict'",
+      "description": "Erstellt SOFORT einen validierten Datensatz: Assets, Tasks, Informationswerte, Prozesse, Maßnahmen.\n\n    payload_json ist ein JSON-Objekt mit Feldern aus v2_capabilities.\n    Keine separate Freigabe, keine Retries. Incidents und Risiken sind ausgeschlossen.\n    "
+    },
+    "update_record": {
+      "signature": "(resource: 'str', record_id: 'str', changes_json: 'str') -> 'dict'",
+      "description": "Aktualisiert SOFORT freigegebene Teilfelder eines Datensatzes (kein DELETE).\n\n    PUT-required title/subject wird vorher per GET geladen. Mit null lassen sich nur\n    laut OpenAPI nullable Felder explizit leeren. Verschachtelte Schutzbedarfs-Updates\n    bleiben für die vorhandenen Spezialtools reserviert.\n    "
+    },
+    "list_incident_links": {
+      "signature": "(incident_id: 'str', kind: 'str') -> 'dict'",
+      "description": "Liest Incident-Verknüpfungen zu assets, measures, information-values oder business-processes."
+    },
+    "link_incident": {
+      "signature": "(incident_id: 'str', kind: 'str', target_id: 'str') -> 'dict'",
+      "description": "Verknüpft SOFORT ein Incident mit einem Asset, einer Maßnahme, Information oder einem Prozess.\n\n    API-seitig idempotent: 201 neu, 200 bereits verknüpft. Kein DELETE/Unlink.\n    "
+    },
+    "list_audit_log": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 30, entity_type: 'str' = '', action: 'str' = '') -> 'dict'",
+      "description": "Liest das API-Audit-Log (Administrator-Leserecht erforderlich); nur Feldnamen, keine Vorwerte."
+    },
+    "bulk_create_records": {
+      "signature": "(resource: 'str', items_json: 'str', execute: 'bool' = False, check_existing: 'bool' = True) -> 'dict'",
+      "description": "Erstellt in einem Durchlauf maximal 10 Assets, Aufgaben, Informationen, Prozesse oder Maßnahmen.\n\n    Alle Einträge werden VOR einem Schreibzugriff validiert. Bei execute=False nur\n    Planvorschau; execute=True führt ohne Einzelbestätigung aus. Default prüft\n    Dubletten anhand von Titel/Betreff über die vollständig paginierte API-Liste.\n    "
+    },
+    "bulk_update_records": {
+      "signature": "(resource: 'str', items_json: 'str', execute: 'bool' = False) -> 'dict'",
+      "description": "Bulk-Update mit GET-Vorabfrage, validierten Änderungen und Teilfehler-Bericht.\n\n    JSON-Array: [{\"record_id\":\"UUID\", \"changes\":{\"status\":\"in_progress\"}}].\n    Bei execute=False nur lokale Validierung; execute=True prüft ALLE Datensätze\n    vor der ersten Änderung. Keine Transaktion / automatische Rücknahme.\n    "
+    },
+    "inventory_snapshot": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description": "Erfasst ein begrenztes, datensparsames Inventar-Snapshot ohne Schreibzugriffe.\n\n    Counts are lower bounds when complete=False. No claim of exhaustive discovery.\n    "
+    },
+    "asset_graph": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description": "Ermittelt bestehende Asset-Hierarchien und bereits gespeicherte Verknüpfungen.\n\n    'linked_assets' are relationships, not automatically an inferred network dependency.\n    No new relation is written; unsupported relationship-create endpoints are not invented.\n    "
+    },
+    "documentation_gaps": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description": "Markiert potenzielle Dokumentationslücken in Assets, Informationen, Prozessen, Maßnahmen.\n\n    Diese Hinweise sind KEINE Compliance-Feststellung und KEINE Risikoeinstufung.\n    "
+    },
+    "find_duplicate_tasks": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description": "Sucht gleiche normalisierte Aufgabenbetreffe im paginierten Bestand (nur Lesen)."
+    },
+    "relationship_capabilities": {
+      "signature": "() -> 'dict'",
+      "description": "Zeigt dokumentierte Beziehungen und Grenzen: frei verknüpfbare Objekte werden nicht behauptet."
+    },
+    "relationship_graph": {
+      "signature": "(max_pages: 'int' = 5, max_edges: 'int' = 3000) -> 'dict'",
+      "description": "Liest den ressortübergreifenden Beziehungsgraphen ohne Datenänderungen."
+    },
+    "related_records": {
+      "signature": "(resource: 'str', record_id: 'str', max_depth: 'int' = 2, max_pages: 'int' = 5) -> 'dict'",
+      "description": "Ermittelt in bis zu drei Schritten verbundene Objekte (kein kausaler Impact-Score)."
+    },
+    "relationship_audit": {
+      "signature": "(max_pages: 'int' = 5) -> 'dict'",
+      "description": "Heuristiken: fehlende Owner, ungeklärte Referenzen und ausstehende Reviews."
+    },
+    "bulk_set_parent": {
+      "signature": "(resource: 'str', items_json: 'str', execute: 'bool' = False, max_pages: 'int' = 5) -> 'dict'",
+      "description": "Setzt fuer bis zu 10 bisher elternlose Assets/Prozesse einen Parent; Dry-run Standard.\n\n    JSON: [{\"record_id\":\"...\", \"parent_id\":\"...\"}]. Auch die Vorschau\n    liest den Bestand, schreibt jedoch nichts. Alle Kind-/Parent-IDs müssen\n    im vollständig geladenen Mandanten-Inventar existieren. Asset-Parent muss\n    als Gruppe markiert sein. Bestehendes Parent wird niemals ersetzt.\n    "
+    },
+    "personnel_capabilities": {
+      "signature": "() -> 'dict'",
+      "description": "Beschreibt verfügbare Personal- und Organisationsfunktionen samt API-Grenzen."
+    },
+    "list_organisations": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 50) -> 'dict'",
+      "description": "Liest bestehende Organisationseinheiten mit parent_id; legt keine Organisation an."
+    },
+    "get_organisation": {
+      "signature": "(organisation_id: 'int') -> 'dict'",
+      "description": "Liest eine vorhandene Organisation anhand der numerischen ID."
+    },
+    "list_personnel": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 50, archived: 'str' = 'false', q: 'str' = '', organisation_id: 'int' = 0) -> 'dict'",
+      "description": "Liest Mitarbeiter; optional Textsuche, Archiv- und Organisationsfilter."
+    },
+    "get_personnel": {
+      "signature": "(person_id: 'int') -> 'dict'",
+      "description": "Liest einen Mitarbeiterdatensatz (Personal ist nicht gleich Systembenutzer)."
+    },
+    "create_personnel": {
+      "signature": "(payload_json: 'str', execute: 'bool' = False, check_existing: 'bool' = True) -> 'dict'",
+      "description": "Erstellt Mitarbeiter (kein Systemlogin!) nach Vorschau und Duplikatprüfung.\n\n    payload_json: z.B. {\"last_name\":\"Test\",\"first_name\":\"Max\",\"email\":\"max@example.org\",\n                      \"organisation_ids\":[12],\"language\":\"de\"}.\n    execute=false validiert nur lokal. execute=true prüft bestehende E-Mail und Organisations-IDs.\n    Bei Fehler KEINEN automatischen Wiederholungsaufruf starten.\n    "
+    },
+    "update_personnel": {
+      "signature": "(person_id: 'int', changes_json: 'str', execute: 'bool' = False) -> 'dict'",
+      "description": "Ändert gezielt Personenstammdaten; Organisationen nur mit assign_personnel_organisations.\n\n    Vor PUT werden die drei laut Schema erforderlichen Namens-/E-Mail-Felder per GET\n    geladen. Vorhandene Organisations-, Tag- und Modulzuweisungen bleiben unberührt.\n    Eine E-Mail-Änderung kann das Login gemäß audatis-API-Regel ändern.\n    "
+    },
+    "assign_personnel_organisations": {
+      "signature": "(person_ids_json: 'str', add_json: 'str' = '[]', remove_json: 'str' = '[]', execute: 'bool' = False) -> 'dict'",
+      "description": "Bulk-Zuweisung bestehender Mitarbeiter zu bestehenden Organisationen (max. 25 pro Aufruf).\n\n    Beispiel person_ids_json='[12,13]', add_json='[3]', remove_json='[]'.\n    Vor dem Schreiben: Existenz, Mandant und Archivstatus ALLER Zielpersonen prüfen.\n    Die API kann Teilerfolge liefern, es gibt keinen automatischen Rollback oder Retry.\n    "
+    },
+    "list_personnel_tags": {
+      "signature": "(page: 'int' = 1, per_page: 'int' = 50) -> 'dict'",
+      "description": "Listet vorhandene Mitarbeiter-Tags und deren Sichtbarkeit."
+    },
+    "get_user": {
+      "signature": "(user_id: 'int') -> 'dict'",
+      "description": "Liest einen bestehenden administrativen Benutzer (nur ID und Name)."
+    },
+    "get_personnel_assignments": {
+      "signature": "(person_id: 'int') -> 'dict'",
+      "description": "Liest bestehende E-Learning-/Zertifikats-/Dokumentationszuweisungen, ohne sie zu ändern."
+    }
+  }
+}

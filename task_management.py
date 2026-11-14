@@ -42,7 +42,7 @@ def _task_id(raw: str) -> str:
 
 
 def _settings() -> tuple[str, str]:
-    if os.getenv("AUDATIS_CLIENT_ID") != str(EXPECTED_CLIENT_ID):
+    if EXPECTED_CLIENT_ID <= 0 or os.getenv("AUDATIS_CLIENT_ID") != str(EXPECTED_CLIENT_ID):
         raise RuntimeError("MCP ist nicht für den erwarteten Testmandanten konfiguriert")
     origin = _origin(os.environ.get("AUDATIS_BASE_URL", ""))
     token = _write_token()

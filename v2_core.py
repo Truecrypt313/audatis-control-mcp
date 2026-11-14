@@ -167,7 +167,7 @@ class V2API:
     """HTTP client testable via httpx.MockTransport. No redirects, proxies or retries."""
     def __init__(self, base_url: str, read_token: str, *, client_id: int = EXPECTED_CLIENT_ID,
                  write_token: str | None = None, transport: httpx.BaseTransport | None = None):
-        if type(client_id) is not int or client_id != EXPECTED_CLIENT_ID:
+        if type(client_id) is not int or client_id <= 0 or client_id != EXPECTED_CLIENT_ID:
             raise ValueError("Nur der konfigurierte Testmandant ist erlaubt")
         if not isinstance(read_token, str) or not read_token.strip():
             raise ValueError("Lesetoken fehlt")
