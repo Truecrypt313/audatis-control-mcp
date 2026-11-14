@@ -11,8 +11,8 @@ It remains usable without the optional manufacturer contract.
 | `copilot_capabilities` | Explain local assessment rules and limitations |
 | `assess_evidence` | Assess a supplied evidence bundle deterministically |
 | `collect_assessment` | Preview collection; read only after both explicit consents |
-| `plan_remediation` | Produce confirmation-required remediation proposals |
-| `render_consulting_report` | Render Markdown and escaped HTML |
+| `plan_remediation` | Produce confirmation-required proposals; asset-only scope: at most three bundles |
+| `render_consulting_report` | Render Markdown/HTML; asset-only scope defaults to a management summary |
 | `load_portfolio_case` | Load the built-in synthetic runtime sample; legacy public name retained |
 | `build_consulting_brief` | Prepare an evidence-bound, minimized assistant brief |
 
@@ -38,11 +38,23 @@ Both `allow_live_read` and `acknowledge_sensitive_output` are required; otherwis
 the result is a local plan without API access. Main-server module and tenant
 guards remain in force. Missing pages or inaccessible references remain explicit.
 
-For an offline sample, run `python -m isms_copilot demo --output <LOCAL_OUTPUT>`.
+For the small three-asset offline sample, run `python -m isms_copilot demo`.
 For your authorized local bundle, use
-`python -m isms_copilot assess <BUNDLE_JSON> --output <LOCAL_OUTPUT>`.
+`python -m isms_copilot assess <BUNDLE_JSON>`.
 Outputs may be sensitive; they are not repository assets and must not be committed.
-The tests generate their outputs in temporary directories.
+The CLI writes `report.md`, `report.html` and `details.json` under the operator-defined
+`AUDATIS_COPILOT_OUTPUT_DIR` (default: the repository's ignored `copilot-output/`).
+`--output` may select a child directory, not escape this root. The root must be private
+(0700); files use 0600. Existing different outputs require explicit `--overwrite`;
+`--check` never writes. Symlink outputs are rejected. No automatic deletion is performed.
+The tests generate their outputs in temporary directories. See the
+[three-instruction live demo](ASSET_DEMO.md) for approval and partial-success handling.
+
+For asset-only assessments, the short report shows at most six overview rows,
+three grouped findings and three recommendations. It explicitly states any omitted
+overview rows. The structured detail artifact retains every assessed asset, finding,
+evidence pointer, source value and checksum. The full multi-resource renderer and
+legacy synthetic sample remain available for existing callers and regression tests.
 
 This is not a certification, legal assessment, vulnerability scanner or proof of
 real security improvement. Professional review and actual control tests remain

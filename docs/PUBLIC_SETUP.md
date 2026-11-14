@@ -51,6 +51,9 @@ path as the command and the absolute `server.py` path as its argument.
 For the independent Copilot, configure a second process with `copilot_server.py`.
 The paths in the example are placeholders, not personal filesystem paths.
 Store credentials using your client's approved private secret mechanism.
+For the asset demonstration, use `AUDATIS_MCP_MODULES=core,assets` on the main
+server (20 base / 24 extended tools); the independent Copilot still has seven tools.
+See [ASSET_DEMO.md](ASSET_DEMO.md).
 
 `AUDATIS_MCP_TOOL_NAMES=modern` selects the public aliases;
 `AUDATIS_MCP_MODULES=all` enables all tools available in the selected mode.

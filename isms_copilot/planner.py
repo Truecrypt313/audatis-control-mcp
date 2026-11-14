@@ -4,8 +4,8 @@ from __future__ import annotations
 from collections import defaultdict
 from datetime import date, timedelta
 
-from .assessment import PRIORITIES, RULESET_VERSION
-from .model import BUNDLE_SCHEMA, ID, RESOURCES, STATUSES, digest, seal, validate, verify_seal
+from .assessment import ASSET_RULESET_VERSION, PRIORITIES, RULESET_VERSION
+from .model import BUNDLE_SCHEMA, ID, RESOURCES, STATUSES, assets_only, digest, seal, validate, verify_seal
 
 STRING = {"type": "string", "maxLength": 20000}
 HASH = {"type": "string", "pattern": "^[0-9a-f]{64}$"}
@@ -69,7 +69,7 @@ def validate_assessment(assessment: dict) -> None:
                      "compliance_conclusion", "assessment_sha256", "inventory"],
         "properties": {
             "schema_version": {"const": "1.0"}, "engine_version": ID,
-            "ruleset_version": {"const": RULESET_VERSION}, "bundle_sha256": HASH, "assessment_sha256": HASH,
+            "ruleset_version": {"enum": [RULESET_VERSION, ASSET_RULESET_VERSION]}, "bundle_sha256": HASH, "assessment_sha256": HASH,
             "assessment_id": {"type": "string", "pattern": "^ASM-[0-9a-f]{20}$"},
             "context": BUNDLE_SCHEMA["properties"]["context"],
             "findings": {"type": "array", "maxItems": 20000, "items": FINDING_SCHEMA},
@@ -149,6 +149,8 @@ def plan_remediation(assessment: dict, roles: dict | None = None) -> dict:
             "status": "proposal", "will_write": False,
         })
     actions.sort(key=lambda action: (action["priority"], action["resource"], action["action_id"]))
+    if assets_only(assessment):
+        actions = compact_asset_actions(actions, assessment)
     return seal({
         "schema_version": "1.0", "assessment_id": assessment["assessment_id"],
         "assessment_sha256": assessment["assessment_sha256"], "mode": "proposal_only",
@@ -156,6 +158,42 @@ def plan_remediation(assessment: dict, roles: dict | None = None) -> dict:
         "limitations": ["Kein Task oder Maßnahmendatensatz wurde angelegt; Owner und Termine sind zu bestätigende Vorschläge.",
                         "Gesetzliche Meldefristen und technische Kritikalität werden nicht aus Dokumentationsprioritäten abgeleitet."],
     }, "plan_sha256")
+
+
+def compact_asset_actions(actions: list[dict], assessment: dict) -> list[dict]:
+    """At most three work packages; every original finding remains referenced once."""
+    groups = defaultdict(list)
+    for action in actions:
+        key = ("governance" if action["topic"] in ("governance", "coverage")
+               else "protection" if action["topic"] == "protection" else "documentation")
+        groups[key].append(action)
+    texts = {
+        "governance": ("Verantwortung und Datenstand bestätigen",
+                       "Betroffene Zuständigkeiten, Status-/Archivangaben und offene Erhebungspunkte fachlich bestätigen; fehlende Belege nachfordern."),
+        "protection": ("CIA-Schutzbedarf begründen",
+                       "Vertraulichkeit, Integrität und Verfügbarkeit der betroffenen Assets mit dem fachlichen Owner begründen und freigeben."),
+        "documentation": ("Beschreibung und Zuordnungen vervollständigen",
+                          "Betroffene Beschreibungen und dokumentierte Beziehungen prüfen; fehlende Angaben ergänzen oder Nichtanwendbarkeit begründen."),
+    }
+    result = []
+    for topic, members in sorted(groups.items()):
+        first = min(members, key=lambda a: (a["priority"], a["action_id"]))
+        action = dict(first)
+        title, recommendation = texts[topic]
+        users = {m["owner_proposal"]["user_id"] for m in members}
+        owner = dict(first["owner_proposal"])
+        owner["user_id"] = next(iter(users)) if len(users) == 1 else None
+        owner["state"] = "existing_id_to_confirm" if owner["user_id"] else "role_proposal"
+        action.update({
+            "action_id": "A-" + digest([assessment["assessment_id"], "asset-summary", topic])[:16],
+            "object_id": None, "topic": topic, "title": title, "recommendation": recommendation,
+            "object_ids": sorted({obj for m in members for obj in m.get("object_ids", [m.get("object_id")]) if obj}),
+            "finding_ids": sorted({fid for m in members for fid in m["finding_ids"]}),
+            "owner_proposal": owner,
+            "evidence_requirements": sorted({e for m in members for e in m["evidence_requirements"]}),
+        })
+        result.append(action)
+    return sorted(result, key=lambda a: (a["priority"], a["action_id"]))
 
 
 def validate_plan(plan: dict, assessment: dict) -> None:

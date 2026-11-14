@@ -533,20 +533,21 @@ def test_case_is_entirely_synthetic_and_follow_up_preserves_open_uncertainty():
     assert all(s["client_reference"].startswith("synthetic:") for s in initial["sources"])
 
 
-def test_demo_artifacts_are_reproducible_and_cli_does_not_overwrite_unrelated_changes(tmp_path):
+def test_demo_artifacts_are_reproducible_and_cli_does_not_overwrite_unrelated_changes(tmp_path, monkeypatch):
     files = demo_artifacts()
-    assert len(files) == 25
+    assert set(files) == {"report.md", "report.html", "details.json"}
     write_artifacts(tmp_path, files)
     write_artifacts(tmp_path, files, check=True)
     for path in tmp_path.rglob("*"):
         if path.is_file():
             assert path.stat().st_mode & 0o077 == 0
-    target = tmp_path / "initial/report.md"
+    target = tmp_path / "report.md"
     target.write_text("USER WORK")
     with pytest.raises(ValueError):
         write_artifacts(tmp_path, files)
     assert target.read_text() == "USER WORK"
     clean = tmp_path / "cli"
+    monkeypatch.setenv("AUDATIS_COPILOT_OUTPUT_DIR", str(tmp_path))
     assert main(["demo", "--output", str(clean)]) == 0
     assert main(["demo", "--output", str(clean), "--check"]) == 0
 

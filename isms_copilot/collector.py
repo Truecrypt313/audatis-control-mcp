@@ -12,7 +12,8 @@ from .model import RESOURCES, empty_bundle, source, validate_bundle
 READ_TOOLS = frozenset({"list_records", "get_record", "lookup_values"})
 FIELDS = {
     "assets": {"id", "title", "description", "category_id", "type_id", "asset_owner_user_id",
-               "protection_needs", "information_values", "measures", "linked_assets", "parent_id", "is_group"},
+               "protection_needs", "information_values", "measures", "linked_assets", "parent_id", "is_group",
+               "status_id", "is_archived"},
     "information-values": {"id", "title", "description", "asset_owner_user_id", "protection_needs",
                            "linked_assets", "next_review_at"},
     "business-processes": {"id", "title", "description", "process_owner_id", "process", "asset_ids",
@@ -90,7 +91,7 @@ async def collect(reader, organisation: str, as_of: str, captured_at: str, resou
     bundle = empty_bundle(organisation, as_of, captured_at, client, synthetic=False, scope=scope)
     validate_bundle(bundle)  # Validate dates/scope before the first authorized read.
     calls, records = 0, 0
-    max_calls = min(1200, max_records + len(resources) * max_pages + 1)
+    max_calls = min(1200, max_records + len(resources) * max_pages + 2)
     explicit = bundle["context"]["scope"]["object_ids"]
     selected_resources = [r for r in resources if explicit is None or explicit.get(r)]
 
@@ -117,8 +118,12 @@ async def collect(reader, organisation: str, as_of: str, captured_at: str, resou
             else:
                 if not isinstance(data, list):
                     raise ReadSourceError("Schutzbedarfsstufen nicht auswertbar")
-                data = {"levels": [{k: row[k] for k in ("level", "name", "is_active") if k in row}
-                                   for row in data if isinstance(row, dict)]}
+                if arguments["name"] == "asset_statuses":
+                    data = {"statuses": [{k: row[k] for k in ("id", "name", "is_active", "is_archive") if k in row}
+                                         for row in data if isinstance(row, dict)]}
+                else:
+                    data = {"levels": [{k: row[k] for k in ("level", "name", "is_active") if k in row}
+                                       for row in data if isinstance(row, dict)]}
             entry = source(tool, arguments, client, data)
         except Exception:
             entry = source(tool, arguments, client, None, state="unavailable",
@@ -129,6 +134,8 @@ async def collect(reader, organisation: str, as_of: str, captured_at: str, resou
     if "assets" in selected_resources:
         ref = await read("lookup_values", {"name": "asset_protection_levels"})
         bundle["references"]["asset_protection_levels"] = ref["source_id"]
+        ref = await read("lookup_values", {"name": "asset_statuses"})
+        bundle["references"]["asset_statuses"] = ref["source_id"]
     for resource in RESOURCES:
         if resource not in selected_resources:
             continue

@@ -8,6 +8,7 @@ from . import __version__
 from .model import RESOURCES, STATUSES, digest, seal, validate_bundle
 
 RULESET_VERSION = "consulting-docs-1.0"
+ASSET_RULESET_VERSION = "asset-docs-1.0"
 PRIORITIES = {
     "P1": {"days": 7, "criterion": "Verantwortung ungeklärt, gespeicherte Frist überschritten, Hierarchie widersprüchlich oder Evidenzabdeckung unvollständig"},
     "P2": {"days": 30, "criterion": "Schutzbedarf, Bewertungsgrundlage, Zuordnung oder Wirksamkeitsnachweis klären"},
@@ -38,6 +39,7 @@ RULE_CATALOG = {
     "task": "Gespeicherte Fälligkeit und Bearbeitungsstatus vergleichen, keine technische Schwachstelle.",
     "measure": "Dokumentierten Umsetzungsstatus und Monitoringdaten getrennt von realer Wirksamkeit behandeln.",
     "risk": "Fehlende Bewertungswerte kennzeichnen, keine Risikomatrix oder Schweregrade erfinden.",
+    "asset_status": "Inventarstatus und Archivierung sind Datenzustände, keine technische Funktionsprüfung.",
 }
 LIMITATIONS = [
     "Keine ISO-27001-/NIS-2-Konformitätsaussage, Zertifizierung, Rechtsberatung oder technische Schwachstellenprüfung.",
@@ -59,6 +61,10 @@ def assess(bundle: dict) -> dict:
     context = bundle["context"]
     as_of = date.fromisoformat(context["as_of"])
     scope = context["scope"]["object_ids"]
+    requested = {r for r, info in bundle["resources"].items()
+                 if (scope is None and info["state"] != "not_requested") or (scope is not None and scope.get(r))}
+    asset_profile = requested == {"assets"}
+    ruleset = ASSET_RULESET_VERSION if asset_profile else RULESET_VERSION
     indexes = {
         r: {sources[sid]["data"]["id"]: sources[sid] for sid in info["records"]}
         for r, info in bundle["resources"].items()
@@ -83,7 +89,7 @@ def assess(bundle: dict) -> dict:
                 "present": present, "observed": value, "data_sha256": entry["data_sha256"]}
 
     def emit(rule, status, priority, resource, obj_id, title, rationale, topic, evidence_items, field=""):
-        fid = "F-" + digest([RULESET_VERSION, rule, resource, obj_id, field])[:16]
+        fid = "F-" + digest([ruleset, rule, resource, obj_id, field])[:16]
         obj = indexes.get(resource, {}).get(obj_id, {}).get("data", {})
         owner = obj.get(OWNERS.get(resource, ""))
         if type(owner) is not int or owner < 1:
@@ -142,11 +148,22 @@ def assess(bundle: dict) -> dict:
                  "delivery" if is_task else "review", [ev, evidence(entry, "status")] if is_task else [ev], field)
 
     levels = None
+    level_names = {}
     level_sid = bundle["references"].get("asset_protection_levels")
     if level_sid:
         entries = (sources[level_sid]["data"] or {}).get("levels")
         if isinstance(entries, list) and entries and all(isinstance(e, dict) and type(e.get("level")) is int for e in entries):
             levels = {e["level"] for e in entries if e.get("is_active", True) is True}
+            level_names = {e["level"]: e.get("name", str(e["level"])) for e in entries
+                           if e.get("is_active", True) is True}
+    status_sid = bundle["references"].get("asset_statuses")
+    status_entries = (sources[status_sid]["data"] or {}).get("statuses", []) if status_sid else []
+    status_map = {}
+    if (isinstance(status_entries, list)
+            and all(isinstance(s, dict) and isinstance(s.get("id"), str)
+                    and isinstance(s.get("name"), str) for s in status_entries)
+            and len({s["id"] for s in status_entries}) == len(status_entries)):
+        status_map = {s["id"]: s for s in status_entries}
 
     coverage = {}
     for resource in RESOURCES:
@@ -191,7 +208,7 @@ def assess(bundle: dict) -> dict:
                 for dimension in ("confidentiality", "integrity", "availability"):
                     item = protection.get(dimension, "nicht geliefert")
                     values[dimension] = scalar(item.get("level", "nicht geliefert") if isinstance(item, dict) else item)
-            status_field = "status_code" if resource == "risks" else "implementation_status" if resource == "measures" else "status"
+            status_field = "status_id" if resource == "assets" else "status_code" if resource == "risks" else "implementation_status" if resource == "measures" else "status"
             inventory.append({
                 "resource": resource, "object_id": obj_id,
                 "label": scalar(obj.get("subject" if resource == "tasks" else "designation" if resource == "risks" else "title", obj_id)),
@@ -200,6 +217,36 @@ def assess(bundle: dict) -> dict:
                 "risk_values": {key: scalar(obj.get(key, "nicht geliefert")) for key in ("gross_risk", "net_risk", "target_risk")} if resource == "risks" else {},
                 "source_id": entry["source_id"], "data_sha256": entry["data_sha256"],
             })
+            if resource == "assets" and asset_profile:
+                status_ev = evidence(entry, "status_id")
+                archive_ev = evidence(entry, "is_archived")
+                stored_status = status_map.get(obj.get("status_id")) if isinstance(obj.get("status_id"), str) else None
+                status_label = stored_status["name"] if stored_status else "nicht überprüfbar"
+                inventory[-1]["asset_details"] = {
+                    "status_label": status_label,
+                    "is_archived": obj.get("is_archived") if type(obj.get("is_archived")) is bool else None,
+                    "description_documented": bool(obj["description"].strip()) if isinstance(obj.get("description"), str) else False if "description" in obj and obj["description"] is None else None,
+                    "cia_labels": {dimension: level_names.get(value, "nicht überprüfbar")
+                                   if type(value) is int else "offen" if value is None else "nicht überprüfbar"
+                                   for dimension, value in values.items()},
+                    "links": {field: len(obj[field]) if isinstance(obj.get(field), list) else None
+                              for field, _, _ in LINKS["assets"]},
+                }
+                if not stored_status:
+                    status = "missing_documentation" if status_ev["present"] and _empty(status_ev["observed"]) else "not_verifiable"
+                    emit("asset_status_unverified", status, "P2", resource, obj_id,
+                         "Inventarstatus nicht belastbar dokumentiert",
+                         "Statuswert fehlt oder ist ohne gültige lokale Nachschlagequelle nicht auflösbar; keine Betriebsstörung ableiten.",
+                         "governance", [status_ev] + ([evidence(sources[status_sid])] if status_sid else []), "status_id")
+                if type(obj.get("is_archived")) is not bool:
+                    emit("asset_archive_unverified", "not_verifiable", "P2", resource, obj_id,
+                         "Archivierung nicht überprüfbar", "Kein ausdrücklich gelieferter boolescher Archivstatus.",
+                         "governance", [archive_ev], "is_archived")
+                elif stored_status and type(stored_status.get("is_archive")) is bool and stored_status["is_archive"] != obj["is_archived"]:
+                    emit("asset_archive_difference", "not_verifiable", "P2", resource, obj_id,
+                         "Status-/Archivangaben fachlich abgleichen",
+                         "Status-Nachschlagequelle und Objekt liefern unterschiedliche Archivkennzeichen. Bedeutung und Archivierungsablauf sind nicht geprüft; keinen Datenfehler oder Ausfall ableiten.",
+                         "governance", [status_ev, archive_ev, evidence(sources[status_sid])], "is_archived")
             field_check(resource, entry, OWNERS[resource], "Verantwortlichkeit", "governance", "P1")
             field_check(resource, entry, "description", "Fachliche Beschreibung", "documentation", "P3")
             if resource in ("assets", "information-values"):
@@ -350,8 +397,8 @@ def assess(bundle: dict) -> dict:
                      ":".join(ids))
     ordered = sorted(findings.values(), key=lambda f: (f["priority"], f["resource"], f["object_id"] or "", f["finding_id"]))
     result = {
-        "schema_version": "1.0", "engine_version": __version__, "ruleset_version": RULESET_VERSION,
-        "assessment_id": "ASM-" + digest([digest(bundle), RULESET_VERSION])[:20],
+        "schema_version": "1.0", "engine_version": __version__, "ruleset_version": ruleset,
+        "assessment_id": "ASM-" + digest([digest(bundle), ruleset])[:20],
         "bundle_sha256": digest(bundle), "context": context, "coverage": coverage,
         "summary": {"findings": len(ordered), "by_status": {s: sum(f["status"] == s for f in ordered) for s in STATUSES},
                     "by_priority": {p: sum(f["priority"] == p for f in ordered) for p in PRIORITIES},
