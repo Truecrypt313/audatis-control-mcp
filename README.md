@@ -1,67 +1,70 @@
 # audatisControl
 
-**Unofficial MCP integration for audatis MANAGER**
+**KI-gestützte Verwaltung und ISMS-Auswertung für audatis MANAGER – über das Model Context Protocol (MCP).**
 
-## Overview
+`audatisControl` verbindet KI-Assistenten wie OpenCode oder VS Code mit unterstützten Funktionen der audatis MANAGER REST-API. Aktionen erfolgen über natürlichsprachliche Anweisungen; ein separater **ISMS Consulting Copilot** analysiert dokumentierte Zustände und erstellt kurze Maßnahmenberichte.
 
-audatisControl connects MCP-compatible assistants to the audatis MANAGER REST API
-using Python for controlled administration and deterministic ISMS analysis.
-**Independent project; not an official extension or endorsed by audatis.**
+> **Unabhängiges Projekt.** Keine offizielle Erweiterung oder Kooperation mit audatis.
 
-## Features
+## Was ist möglich?
 
-- **Base mode:** 47 existing integration tools plus the local module overview
-  (**48 tools** with `all`).
-- **Extended mode:** **227 tools** with the reviewed, authorized API **1.3.1**
-  specification, including incident, measure, process and compliance operations.
-- Configurable tool groups through `AUDATIS_MCP_MODULES`, supported bulk
-  operations, documented relationships and read-only risk access.
-- **7 separate ISMS Consulting Copilot tools** for evidence-based assessments,
-  remediation proposals and reproducible Markdown/HTML reports.
-- Three-asset demo with a preview/approval pause and at most three recommendations.
+| Bereich | Funktionen |
+| --- | --- |
+| **Assets** | Auflisten, anlegen, aktualisieren, Verantwortlichkeiten und Schutzbedarf verwalten, Beziehungen prüfen |
+| **Aufgaben** | Erstellen, bearbeiten, priorisieren und gesammelt verarbeiten |
+| **Personal & Benutzer** | Mitarbeiterdatensätze anlegen und bearbeiten, Organisationen zuordnen; bestehende Systembenutzer lesen – **keine Benutzerkonto- oder Rollenerstellung** |
+| **Risiken & Sicherheitsvorfälle** | Risiken lesen und analysieren; Vorfälle und unterstützte Verknüpfungen verwalten (abhängig von API und Berechtigung) |
+| **ISMS-Daten** | Informationswerte, Geschäftsprozesse, Sicherheitsmaßnahmen und unterstützte Compliance-Einträge bearbeiten |
+| **Analysen & Berichte** | Dokumentationslücken und Abhängigkeiten prüfen, Maßnahmen empfehlen, HTML-/Markdown-Kurzberichte erstellen |
 
-## Architecture
+**Verfügbare MCP-Werkzeuge:** 48 im Basismodus; bis zu 227 mit einer selbst autorisiert bereitgestellten API-Spezifikation 1.3.1. Dazu kommen **7 Tools** im eigenständigen ISMS Consulting Copilot. Der Umfang hängt von Modulprofil, API und Berechtigungen ab.
 
-`server.py` exposes the main MCP/stdio server. Its optional local catalog loads
-on demand; missing or invalid specifications leave base tools available.
-`copilot_server.py` runs independently, without AI-service calls or API writes.
+## Live-Demo mit OpenCode
 
-## Quick Start
+Die folgenden Screenshots zeigen einen **echten Durchlauf in einem Testmandanten**. Mandantenangaben sind aus den Bildausschnitten entfernt.
 
-Use Python **3.11+**. Run `python3 -m venv .venv`, then
-`.venv/bin/python -m pip install -r requirements.txt -r requirements-v2.txt`.
-Copy `.env.example` to a private `.env`; configure the HTTPS origin, credentials,
-active tenant and allowed-tenant guard.
+**1. Assets abrufen**
 
-Configure separate stdio entries in your MCP client using absolute interpreter
-and script paths: `.venv/bin/python` with `server.py`, or `copilot_server.py`.
-Set `AUDATIS_MCP_TOOL_NAMES=modern`; use `AUDATIS_MCP_MODULES=all` for the full
-profile.
+> Liste alle vorhandenen Assets vollständig auf und zeige Name, Typ und dokumentierten Status. Keine Änderungen.
 
-**No audatis MANAGER API specification is distributed.** For extended mode,
-set `AUDATIS_OPENAPI_SPEC_PATH` to your own authorized local copy. Version,
-structure and checksum are checked. Restart after configuration changes.
+![Assetübersicht in OpenCode – Auszug aus dem Bestand](docs/screenshots/01-assetbestand.png)
 
-## Security
+**2. Drei Assets vorbereiten und nach Freigabe anlegen**
 
-Use least-privilege credentials, aligned tenant guards and separate protected
-write credentials. New management writes require explicit execution; incidents
-and deletions have additional confirmations. Legacy immediate-write tools remain.
-Profiles are **not read-only enforcement**. No automatic bulk rollback or retry.
-Never commit secrets or customer data. Findings are not compliance certifications.
+> Bereite DEMO-FW-02, DEMO-SRV-02 und DEMO-WST-02 vor. Zeige den Erstellungsplan und warte auf meine Freigabe.
 
-## Documentation
+![Validierte Asset-Erstellungsvorschau](docs/screenshots/02-erstellungsvorschau.png)
 
-- [Setup and optional specification](docs/PUBLIC_SETUP.md)
-- [Tool groups](docs/PUBLIC_TOOL_MODULES.md)
-- [ISMS Consulting Copilot](docs/PUBLIC_COPILOT.md)
-- [Three-instruction asset demo and short report](docs/ASSET_DEMO.md)
-- [Security and distribution boundaries](docs/PUBLICATION_SECURITY.md)
+Nach separater Freigabe wurden die drei Test-Assets über die API erstellt:
 
-Run `.venv/bin/python -m pytest -q tests/` for offline tests.
+![Erfolgreiche Anlage der drei Demo-Assets](docs/screenshots/03-assetanlage.png)
 
-## License
+**3. Dokumentation prüfen und Kurzbericht erstellen**
 
-[PolyForm Noncommercial 1.0.0](LICENSE.md) and [required notice](NOTICE).
-Commercial use outside its permissions requires a separate
-[commercial agreement](COMMERCIAL-LICENSING.md). Third-party rights remain unchanged.
+> Analysiere ausschließlich die drei neu erstellten Assets. Prüfe Verantwortliche, Status und Schutzbedarf. Gib maximal drei Empfehlungen und erstelle einen kurzen HTML-Bericht. Keine API-Änderungen.
+
+![ISMS-Dokumentationsanalyse mit Empfehlungen und Bericht](docs/screenshots/04-isms-auswertung.png)
+
+Der Asset-Kurzbericht des ISMS Consulting Copilot enthält eine Assetübersicht, bis zu drei Befundgruppen und Handlungsempfehlungen. Beim lokalen CLI-Export bleiben vollständige Nachweise separat in `details.json`. **Eine Dokumentationslücke ist kein Nachweis einer technischen Schwachstelle.**
+
+## Schnellstart
+
+Voraussetzungen: Python **3.11+**, ein autorisierter audatis MANAGER API-Zugang und ein MCP-fähiger Client.
+
+```bash
+git clone https://github.com/Truecrypt313/audatis-control-mcp.git
+cd audatis-control-mcp
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt -r requirements-v2.txt
+cp .env.example .env
+```
+
+`.env` lokal konfigurieren und die [MCP-Beispielkonfiguration](.vscode/mcp.example.json) für `server.py` sowie `copilot_server.py` verwenden. Eine Herstellerspezifikation ist **nicht** im Repository enthalten und für die gezeigte Asset-Demo nicht nötig.
+
+**Weiterlesen:** [Einrichtung](docs/PUBLIC_SETUP.md) · [Live-Demo](docs/ASSET_DEMO.md) · [ISMS Copilot](docs/PUBLIC_COPILOT.md) · [Sicherheit](docs/PUBLICATION_SECURITY.md)
+
+## Sicherheit & Lizenz
+
+Schreibzugriffe verändern reale Datensätze. Ausschließlich autorisierte Testmandanten und minimale Berechtigungen verwenden; die Demo sieht eine separate Freigabe vor. **Einige bestehende Werkzeuge schreiben sofort; eine separate Freigabe ist nicht für alle Werkzeuge technisch erzwungen.** Modulprofile ersetzen keine API-Berechtigungen. Kein automatischer ISO-27001-/NIS-2-Konformitätsnachweis.
+
+**Lizenz:** [PolyForm Noncommercial 1.0.0](LICENSE.md) · [Kommerzielle Lizenzierung](COMMERCIAL-LICENSING.md) · [Copyright-Hinweise](NOTICE)
